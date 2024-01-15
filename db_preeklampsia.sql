@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 25 Mei 2023 pada 17.24
+-- Generation Time: 15 Jan 2024 pada 02.48
 -- Versi Server: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_pemilu`
+-- Database: `db_preeklampsia`
 --
 
 -- --------------------------------------------------------
@@ -219,11 +219,32 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`id_menu`, `nama_menu`, `link`, `link_b`, `icon_menu`, `status`, `aktif`) VALUES
 (1, 'SETTING', 'index.php?aksi=profil', '', 'fa-bar-chart-o', 'admin', 'Y'),
-(6, 'PASLON', 'index.php?aksi=paslon', '', 'fa-calendar', 'admin', 'Y'),
-(10, 'DATA TPS', '#', '', 'fa-users', 'admin', 'Y'),
+(6, 'PASIEN', 'index.php?aksi=pasien', '', 'fa-calendar', 'admin', 'Y'),
+(10, 'INPUT DATA', '#', '', 'fa-users', 'admin', 'Y'),
 (11, 'QUIQCOUNT', 'index.php?aksi=inputdata', '', 'fa-table', 'admin', 'Y'),
 (14, 'MENU', 'index.php?aksi=menu', '', 'fa-file-text', 'admin', 'Y'),
 (18, 'SUB MENU', 'index.php?aksi=submenu', '', 'fa-calendar-minus-o', 'admin', 'Y');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `pasien`
+--
+
+CREATE TABLE `pasien` (
+  `id_pasien` int(100) NOT NULL,
+  `nama_pasien` varchar(100) NOT NULL,
+  `umur_pasien` varchar(100) NOT NULL,
+  `nama_suami` varchar(100) NOT NULL,
+  `alamat_pasien` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `pasien`
+--
+
+INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `umur_pasien`, `nama_suami`, `alamat_pasien`) VALUES
+(1, 'NOVITA', '28', 'MARDI', 'PRINGSEWU');
 
 -- --------------------------------------------------------
 
@@ -1228,6 +1249,12 @@ ALTER TABLE `menu`
   ADD PRIMARY KEY (`id_menu`);
 
 --
+-- Indexes for table `pasien`
+--
+ALTER TABLE `pasien`
+  ADD PRIMARY KEY (`id_pasien`);
+
+--
 -- Indexes for table `paslon`
 --
 ALTER TABLE `paslon`
@@ -1282,6 +1309,11 @@ ALTER TABLE `kecamatan`
 --
 ALTER TABLE `menu`
   MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `pasien`
+--
+ALTER TABLE `pasien`
+  MODIFY `id_pasien` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `paslon`
 --
