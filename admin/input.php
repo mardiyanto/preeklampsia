@@ -11,9 +11,23 @@ if($_GET['aksi']=='inputpasien'){
 	mysqli_query($koneksi,"insert into pasien (nama_pasien,nama_suami,umur_pasien,alamat_pasien) values ('$_POST[nama_pasien]','$_POST[nama_suami]','$_POST[umur_pasien]','$_POST[alamat_pasien]')");  
 	echo "<script>window.location=('index.php?aksi=pasien')</script>";
 }
-elseif($_GET['aksi']=='inputdesa'){
-	mysqli_query($koneksi,"insert into desa (nama_desa,id_kecamatan) values ('$_POST[nama_desa]','$_POST[id_kecamatan]')");  
-echo "<script>window.location=('index.php?aksi=desa')</script>";
+elseif($_GET['aksi']=='inputbmi'){
+	$tb=$_POST['tb']/100;
+	$kuadrat_tb = $tb * $tb;
+	$bb=$_POST['bb'];
+	$total=$bb/$kuadrat_tb;
+
+	mysqli_query($koneksi,"insert into bmi (id_pasien,bb,tb,total_bmi) values ('$_POST[id_pasien]','$bb','$_POST[tb]','$total')");  
+echo "<script>window.location=('index.php?aksi=bmi')</script>";
+}
+elseif($_GET['aksi']=='inputmap'){
+	$diastole=$_POST['diastole'];
+	$plus_diastole = $diastole + $diastole;
+	$sistole=$_POST['sistole'];
+	$total=($sistole + $plus_diastole) / 3;
+
+	mysqli_query($koneksi,"insert into map (id_pasien,sistole,diastole1,diastole2,total_map) values ('$_POST[id_pasien]','$sistole','$diastole','$diastole','$total')");  
+echo "<script>window.location=('index.php?aksi=bmi')</script>";
 }
 elseif($_GET['aksi']=='inputkecamatan'){
 	mysqli_query($koneksi,"insert into kecamatan (nama_kecamatan) values ('$_POST[nama_kecamatan]')");  
