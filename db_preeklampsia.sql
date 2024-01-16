@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 16 Jan 2024 pada 16.06
+-- Generation Time: 16 Jan 2024 pada 17.21
 -- Versi Server: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -41,7 +41,8 @@ CREATE TABLE `bmi` (
 --
 
 INSERT INTO `bmi` (`id_bmi`, `tb`, `bb`, `total_bmi`, `id_pasien`) VALUES
-(1, '160', '70', '27.34375', 1);
+(1, '200', '70', '17.5', 1),
+(2, '200', '70', '17.5', 2);
 
 -- --------------------------------------------------------
 
@@ -63,35 +64,9 @@ CREATE TABLE `map` (
 --
 
 INSERT INTO `map` (`id_map`, `id_pasien`, `sistole`, `diastole1`, `diastole2`, `total_map`) VALUES
-(1, 1, '110', '60', '60', '76.666666666667');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `menu`
---
-
-CREATE TABLE `menu` (
-  `id_menu` int(11) NOT NULL,
-  `nama_menu` varchar(250) NOT NULL,
-  `link` varchar(520) NOT NULL,
-  `link_b` varchar(100) NOT NULL,
-  `icon_menu` varchar(100) NOT NULL,
-  `status` varchar(25) NOT NULL,
-  `aktif` varchar(11) NOT NULL DEFAULT 'Y'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data untuk tabel `menu`
---
-
-INSERT INTO `menu` (`id_menu`, `nama_menu`, `link`, `link_b`, `icon_menu`, `status`, `aktif`) VALUES
-(1, 'SETTING', 'index.php?aksi=profil', '', 'fa-bar-chart-o', 'admin', 'Y'),
-(6, 'PASIEN', 'index.php?aksi=pasien', '', 'fa-calendar', 'admin', 'Y'),
-(10, 'INPUT DATA', '#', '', 'fa-users', 'admin', 'Y'),
-(11, 'QUIQCOUNT', 'index.php?aksi=inputdata', '', 'fa-table', 'admin', 'Y'),
-(14, 'MENU', 'index.php?aksi=menu', '', 'fa-file-text', 'admin', 'Y'),
-(18, 'SUB MENU', 'index.php?aksi=submenu', '', 'fa-calendar-minus-o', 'admin', 'Y');
+(1, 1, '110', '90', '90', '96.666666666667'),
+(2, 2, '110', '60', '60', '76.666666666667'),
+(3, 3, '90', '45', '45', '60');
 
 -- --------------------------------------------------------
 
@@ -104,15 +79,20 @@ CREATE TABLE `pasien` (
   `nama_pasien` varchar(100) NOT NULL,
   `umur_pasien` varchar(100) NOT NULL,
   `nama_suami` varchar(100) NOT NULL,
-  `alamat_pasien` text NOT NULL
+  `alamat_pasien` text NOT NULL,
+  `bmi` varchar(100) NOT NULL DEFAULT 'belum',
+  `map` varchar(100) NOT NULL DEFAULT 'belum',
+  `rot` varchar(100) NOT NULL DEFAULT 'belum'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `pasien`
 --
 
-INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `umur_pasien`, `nama_suami`, `alamat_pasien`) VALUES
-(1, 'NOVITA', '28', 'MARDI', 'PRINGSEWU');
+INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `umur_pasien`, `nama_suami`, `alamat_pasien`, `bmi`, `map`, `rot`) VALUES
+(1, 'SUMI', '28', 'JONI', 'PRINGSEWU', 'sudah', 'sudah', 'sudah'),
+(2, 'NOVITA', '28', 'MARDI', 'PRINGSEWU', 'sudah', 'sudah', 'sudah'),
+(3, 'drd', '28', 'ds', 'PRINGSEWU', 'belum', 'sudah', 'belum');
 
 -- --------------------------------------------------------
 
@@ -143,25 +123,24 @@ INSERT INTO `profil` (`id_profil`, `nama_app`, `tahun`, `nama`, `alias`, `alamat
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `submenu`
+-- Struktur dari tabel `rot`
 --
 
-CREATE TABLE `submenu` (
-  `id_submenu` int(100) NOT NULL,
-  `id_menu` int(100) NOT NULL,
-  `nama_sub` varchar(100) NOT NULL,
-  `link_sub` text NOT NULL,
-  `icon_sub` varchar(100) NOT NULL
+CREATE TABLE `rot` (
+  `id_rot` int(100) NOT NULL,
+  `id_pasien` int(100) NOT NULL,
+  `terlentang` varchar(100) NOT NULL,
+  `miring` varchar(100) NOT NULL,
+  `total_rot` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `submenu`
+-- Dumping data untuk tabel `rot`
 --
 
-INSERT INTO `submenu` (`id_submenu`, `id_menu`, `nama_sub`, `link_sub`, `icon_sub`) VALUES
-(1, 10, 'DESA', 'index.php?aksi=desa', 'fa-exchange'),
-(2, 10, 'KECAMATAN', 'index.php?aksi=kecamatan', 'fa-exchange'),
-(3, 10, 'TPS', 'index.php?aksi=tps', 'fa-exchange');
+INSERT INTO `rot` (`id_rot`, `id_pasien`, `terlentang`, `miring`, `total_rot`) VALUES
+(1, 1, '123', '121', '2'),
+(2, 2, '123', '12', '111');
 
 -- --------------------------------------------------------
 
@@ -195,19 +174,15 @@ INSERT INTO `user` (`user_id`, `user_nama`, `user_username`, `user_password`, `u
 -- Indexes for table `bmi`
 --
 ALTER TABLE `bmi`
-  ADD PRIMARY KEY (`id_bmi`);
+  ADD PRIMARY KEY (`id_bmi`),
+  ADD KEY `id_pasien` (`id_pasien`);
 
 --
 -- Indexes for table `map`
 --
 ALTER TABLE `map`
-  ADD PRIMARY KEY (`id_map`);
-
---
--- Indexes for table `menu`
---
-ALTER TABLE `menu`
-  ADD PRIMARY KEY (`id_menu`);
+  ADD PRIMARY KEY (`id_map`),
+  ADD KEY `id_pasien` (`id_pasien`);
 
 --
 -- Indexes for table `pasien`
@@ -222,10 +197,11 @@ ALTER TABLE `profil`
   ADD PRIMARY KEY (`id_profil`);
 
 --
--- Indexes for table `submenu`
+-- Indexes for table `rot`
 --
-ALTER TABLE `submenu`
-  ADD PRIMARY KEY (`id_submenu`);
+ALTER TABLE `rot`
+  ADD PRIMARY KEY (`id_rot`),
+  ADD KEY `id_pasien` (`id_pasien`);
 
 --
 -- Indexes for table `user`
@@ -241,37 +217,54 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bmi`
 --
 ALTER TABLE `bmi`
-  MODIFY `id_bmi` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_bmi` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `map`
 --
 ALTER TABLE `map`
-  MODIFY `id_map` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
---
--- AUTO_INCREMENT for table `menu`
---
-ALTER TABLE `menu`
-  MODIFY `id_menu` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_map` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id_pasien` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_pasien` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `profil`
 --
 ALTER TABLE `profil`
   MODIFY `id_profil` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
--- AUTO_INCREMENT for table `submenu`
+-- AUTO_INCREMENT for table `rot`
 --
-ALTER TABLE `submenu`
-  MODIFY `id_submenu` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+ALTER TABLE `rot`
+  MODIFY `id_rot` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;COMMIT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+--
+
+--
+-- Ketidakleluasaan untuk tabel `bmi`
+--
+ALTER TABLE `bmi`
+  ADD CONSTRAINT `bmi_ibfk_1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `map`
+--
+ALTER TABLE `map`
+  ADD CONSTRAINT `map_ibfk_1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `rot`
+--
+ALTER TABLE `rot`
+  ADD CONSTRAINT `rot_ibfk_1` FOREIGN KEY (`id_pasien`) REFERENCES `pasien` (`id_pasien`) ON DELETE CASCADE ON UPDATE CASCADE;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
