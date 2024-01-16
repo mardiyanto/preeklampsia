@@ -6,9 +6,9 @@
     header("location:../login.php?alert=belum_login");
   }
 ///////////////////////////lihat/////////////////////////////////////////////
-if($_GET['aksi']=='hapuspaslon'){
-mysqli_query($koneksi,"DELETE FROM paslon  WHERE id_paslon='$_GET[id_paslon]'");
-echo "<script>window.location=('index.php?aksi=paslon')</script>";
+if($_GET['aksi']=='hapuspasien'){
+mysqli_query($koneksi,"DELETE FROM pasien  WHERE id_pasien='$_GET[id_pasien]'");
+echo "<script>window.location=('index.php?aksi=pasien')</script>";
 }
 elseif($_GET['aksi']=='hapuskecamatan'){
   mysqli_query($koneksi,"DELETE FROM kecamatan  WHERE id_kecamatan='$_GET[id_kecamatan]'");

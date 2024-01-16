@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 16 Jan 2024 pada 17.21
+-- Generation Time: 16 Jan 2024 pada 18.04
 -- Versi Server: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -42,7 +42,7 @@ CREATE TABLE `bmi` (
 
 INSERT INTO `bmi` (`id_bmi`, `tb`, `bb`, `total_bmi`, `id_pasien`) VALUES
 (1, '200', '70', '17.5', 1),
-(2, '200', '70', '17.5', 2);
+(2, '123', '50', '33.049110978915', 2);
 
 -- --------------------------------------------------------
 
@@ -65,8 +65,7 @@ CREATE TABLE `map` (
 
 INSERT INTO `map` (`id_map`, `id_pasien`, `sistole`, `diastole1`, `diastole2`, `total_map`) VALUES
 (1, 1, '110', '90', '90', '96.666666666667'),
-(2, 2, '110', '60', '60', '76.666666666667'),
-(3, 3, '90', '45', '45', '60');
+(2, 2, '110', '60', '60', '76.666666666667');
 
 -- --------------------------------------------------------
 
@@ -92,7 +91,7 @@ CREATE TABLE `pasien` (
 INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `umur_pasien`, `nama_suami`, `alamat_pasien`, `bmi`, `map`, `rot`) VALUES
 (1, 'SUMI', '28', 'JONI', 'PRINGSEWU', 'sudah', 'sudah', 'sudah'),
 (2, 'NOVITA', '28', 'MARDI', 'PRINGSEWU', 'sudah', 'sudah', 'sudah'),
-(3, 'drd', '28', 'ds', 'PRINGSEWU', 'belum', 'sudah', 'belum');
+(4, 'DPRD', '12', 'AKA', '12', 'belum', 'belum', 'belum');
 
 -- --------------------------------------------------------
 
@@ -117,7 +116,7 @@ CREATE TABLE `profil` (
 --
 
 INSERT INTO `profil` (`id_profil`, `nama_app`, `tahun`, `nama`, `alias`, `alamat`, `isi`, `gambar`, `akabest`) VALUES
-(1, 'QUICK COUNT', '2022/2023', 'DEWAN PENGAWAS PROGRAMING', 'DPRD PRINGSEWU', 'JL Wismarini No 09 Pringsewu Lampung', '', '26122022051024.jpg', 'mardybest@gmail.com'),
+(1, 'APP', '2022/2023', 'preeklampsia', 'IBU HAMIL', 'JL Wismarini No 09 Pringsewu Lampung', '', '26122022051024.jpg', 'mardybest@gmail.com'),
 (2, 're', '', 'MARDIYANTO', '19081989578978975', '', '', '', '');
 
 -- --------------------------------------------------------
@@ -217,7 +216,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bmi`
 --
 ALTER TABLE `bmi`
-  MODIFY `id_bmi` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_bmi` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `map`
 --
@@ -227,7 +226,7 @@ ALTER TABLE `map`
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id_pasien` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_pasien` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `profil`
 --
@@ -237,7 +236,7 @@ ALTER TABLE `profil`
 -- AUTO_INCREMENT for table `rot`
 --
 ALTER TABLE `rot`
-  MODIFY `id_rot` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_rot` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `user`
 --

@@ -14,31 +14,7 @@ echo"
 			</div>
                    </div>
 </div>";
-include "grafik.php";
-echo"<div class='row'>
-                    <div class='col-xs-12'>
-              <div class='panel panel-primary'>
-			    <div class='box-header'>
-				   <h3 class='box-title'>INFORMASI</h3>
-                </div>
-                <div class='box-header'>
-				</div>
-     <div class='box-body'>";
-     $main=mysqli_query($koneksi,"SELECT * FROM submenu");
-
-     while($r=mysqli_fetch_array($main)){           
-     echo"<a href='$r[link_sub]' class='btn btn-app'>
-                    <span class='badge bg-yellow'>3</span>
-                    <i class='fa $r[icon_sub] fa-5x'></i> $r[nama_sub]
-                  </a>";
-                }           
-                echo "
-
-            </div>
-			</div>
- </div>
-			</div>
-";
+include "grafik1.php";
 }
 elseif($_GET['aksi']=='ikon'){
 include "../ikon.php";
@@ -126,7 +102,7 @@ elseif($_GET['aksi']=='pasien'){
 
                                 <div class='modal-header'>
                                     <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                                    <h4 class='modal-title' id='H3'>Input Data $t[id_pasien]</h4>
+                                    <h4 class='modal-title' id='H3'>Input Data $t[nama_pasien]</h4>
                                 </div>
 
                                 <div class='modal-body'>
@@ -147,13 +123,51 @@ elseif($_GET['aksi']=='pasien'){
                          </div>
                          </div>
 
+                         <div class='modal fade' id='databmi$t[id_pasien]' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                          <div class='modal-dialog'>
+                            <div class='modal-content'>
+
+                                <div class='modal-header'>
+                                    <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                    <h4 class='modal-title' id='H3'>Data BMI $t[nama_pasien]</h4>
+                                </div>
+
+                                <div class='modal-body'>
+                                    <div class='form-group'>";
+                                    $sql1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
+                                    $s=mysqli_fetch_array($sql1);
+                                    echo"
+                                        
+                                         <label>Berat Badan</label>
+                                         <input type='text' class='form-control' value='$s[bb]'disabled readonly>
+                                         <label>Tinggi Badan</label>
+                                         <input type='text' class='form-control' value='$s[tb]' disabled readonly>
+                                         <label>Total </label>
+                                         <input type='text' class='form-control' value='$s[total_bmi]' disabled readonly><br>";
+                                         if ($s['total_bmi'] >= 28.8) {
+                                            echo"<a href='' class='btn btn-danger'>preeklampsia</a>";
+                                        } else {
+                                            echo"<a href='' class='btn btn-success'>Normal</a>";
+                                        }
+                                         echo"
+                                         <br><br>
+                                         <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                                         <a href='index.php?aksi=editbmi&id_bmi=$s[id_bmi]' class='btn btn-primary'>Edit </a>
+                                       
+                                     </div>                                            
+                                 </div>
+
+                             </div>
+                           </div>
+                          </div>
+
                          <div class='modal fade' id='map$t[id_pasien]' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
                         <div class='modal-dialog'>
                             <div class='modal-content'>
 
                                 <div class='modal-header'>
                                     <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                                    <h4 class='modal-title' id='H3'>Input Data $t[id_pasien]</h4>
+                                    <h4 class='modal-title' id='H3'>Input Data $t[nama_pasien]</h4>
                                 </div>
 
                                 <div class='modal-body'>
@@ -174,6 +188,45 @@ elseif($_GET['aksi']=='pasien'){
                          </div>
                          </div>
 
+                         <div class='modal fade' id='datamap$t[id_pasien]' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                         <div class='modal-dialog'>
+                           <div class='modal-content'>
+
+                               <div class='modal-header'>
+                                   <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                   <h4 class='modal-title' id='H3'>Data MAP $t[nama_pasien]</h4>
+                               </div>
+
+                               <div class='modal-body'>
+                               <div class='form-group'>";
+                               $sql2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
+                               $j=mysqli_fetch_array($sql2);
+                               echo"
+                               
+                                    <label>sistole</label>
+                                    <input type='text' class='form-control' value='$j[sistole]'disabled readonly>
+                                    <label>diastole</label>
+                                    <input type='text' class='form-control' value='$j[diastole1]' disabled readonly>
+                                    <label>Total </label>
+                                    <input type='text' class='form-control' value='$j[total_map]' disabled readonly><br>";
+                                    if ($j['total_map'] >= 90) {
+                                       echo"<a href='' class='btn btn-danger'>preeklampsia</a>";
+                                   } else {
+                                       echo"<a href='' class='btn btn-success'>Normal</a>";
+                                   }
+                                    echo"
+                                    <br><br>
+                                     
+                                        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                                        <a href='index.php?aksi=editmap&id_map=$j[id_map]' class='btn btn-primary'>Edit </a>
+                                   
+                                    </div>                                            
+                                </div>
+
+                            </div>
+                          </div>
+                         </div>
+
 
                          <div class='modal fade' id='rot$t[id_pasien]' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
                         <div class='modal-dialog'>
@@ -181,7 +234,7 @@ elseif($_GET['aksi']=='pasien'){
 
                                 <div class='modal-header'>
                                     <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
-                                    <h4 class='modal-title' id='H3'>Input Data $t[id_pasien]</h4>
+                                    <h4 class='modal-title' id='H3'>Input Data $t[nama_pasien]</h4>
                                 </div>
 
                                 <div class='modal-body'>
@@ -201,6 +254,45 @@ elseif($_GET['aksi']=='pasien'){
 
                              </div>
                          </div>
+                         </div>
+
+                         <div class='modal fade' id='datarot$t[id_pasien]' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                         <div class='modal-dialog'>
+                           <div class='modal-content'>
+
+                               <div class='modal-header'>
+                                   <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                   <h4 class='modal-title' id='H3'>Data ROT $t[nama_pasien]</h4>
+                               </div>
+
+                               <div class='modal-body'>
+                               <div class='form-group'>";
+                               $sql3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
+                               $jx=mysqli_fetch_array($sql3);
+                               echo"
+                               
+                                    <label>Diastole Miring</label>
+                                    <input type='text' class='form-control' value='$jx[miring]'disabled readonly>
+                                    <label>Diastole Terlentang</label>
+                                    <input type='text' class='form-control' value='$jx[terlentang]' disabled readonly>
+                                    <label>Total </label>
+                                    <input type='text' class='form-control' value='$jx[total_rot]' disabled readonly><br>";
+                                    if ($jx['total_rot'] >= 15) {
+                                       echo"<a href='' class='btn btn-danger'>preeklampsia</a>";
+                                   } else {
+                                       echo"<a href='' class='btn btn-success'>Normal</a>";
+                                   }
+                                    echo"
+                                    <br><br>
+                                     
+                                        <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                                        <a href='index.php?aksi=editrot&id_rot=$jx[id_rot]' class='btn btn-primary'>Edit </a>
+                                   
+                                    </div>                                            
+                                </div>
+
+                            </div>
+                          </div>
                          </div>
 
                                            
