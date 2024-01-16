@@ -18,6 +18,7 @@ elseif($_GET['aksi']=='inputbmi'){
 	$total=$bb/$kuadrat_tb;
 
 	mysqli_query($koneksi,"insert into bmi (id_pasien,bb,tb,total_bmi) values ('$_POST[id_pasien]','$bb','$_POST[tb]','$total')");  
+	mysqli_query($koneksi,"UPDATE pasien SET bmi='sudah' WHERE id_pasien='$_POST[id_pasien]'");
 echo "<script>window.location=('index.php?aksi=bmi')</script>";
 }
 elseif($_GET['aksi']=='inputmap'){
@@ -27,56 +28,19 @@ elseif($_GET['aksi']=='inputmap'){
 	$total=($sistole + $plus_diastole) / 3;
 
 	mysqli_query($koneksi,"insert into map (id_pasien,sistole,diastole1,diastole2,total_map) values ('$_POST[id_pasien]','$sistole','$diastole','$diastole','$total')");  
-echo "<script>window.location=('index.php?aksi=bmi')</script>";
+	
+	mysqli_query($koneksi,"UPDATE pasien SET map='sudah' WHERE id_pasien='$_POST[id_pasien]'");
+echo "<script>window.location=('index.php?aksi=map')</script>";
 }
-elseif($_GET['aksi']=='inputkecamatan'){
-	mysqli_query($koneksi,"insert into kecamatan (nama_kecamatan) values ('$_POST[nama_kecamatan]')");  
-echo "<script>window.location=('index.php?aksi=kecamatan')</script>";
-}
-//////////////////////////////tps/////////////////////////////////////////////////////////////////////
-elseif($_GET['aksi']=='inputtps'){
-	mysqli_query($koneksi,"insert into tps (id_kecamatan,id_desa,no_tps) values ('$_POST[id_kecamatan]','$_POST[id_desa]','$_POST[no_tps]')");  
-echo "<script>window.location=('index.php?aksi=tps')</script>";
-}
-elseif ($_GET['aksi'] == 'inputsuarapasien') {
-    // Validasi combo box
-    if (!isset($_POST['id_kecamatan']) || empty($_POST['id_kecamatan']) ||
-        !isset($_POST['id_desa']) || empty($_POST['id_desa']) ||
-        !isset($_POST['id_tps']) || empty($_POST['id_tps']) ||
-        !isset($_POST['id_pasien']) || empty($_POST['id_pasien']) ||
-        !isset($_POST['suara_sah']) || empty($_POST['suara_sah']) ) {
-        // Redirect jika ada data yang kosong
-        echo "<script>alert('Harap lengkapi semua data');</script>";
-        echo "<script>window.location=('index.php?aksi=tps');</script>";
-        exit; // Menghentikan eksekusi kode selanjutnya
-    }
 
-    // Eksekusi query SQL untuk menambahkan data
-    mysqli_query($koneksi, "INSERT INTO suara (id_kecamatan, id_desa, id_tps, id_pasien, suara_sah, suara_rusak) VALUES ('$_POST[id_kecamatan]', '$_POST[id_desa]', '$_POST[id_tps]', '$_POST[id_pasien]', '$_POST[suara_sah]', '$_POST[suara_rusak]')");
+elseif($_GET['aksi']=='inputrot'){
+	$terlentang=$_POST['terlentang'];
+	$miring=$_POST['miring'];
+	$total=$terlentang-$miring;
+	mysqli_query($koneksi,"insert into rot (id_pasien,terlentang,miring,total_rot) values ('$_POST[id_pasien]','$terlentang','$miring','$total')");  
 
-    // Redirect ke halaman index.php?aksi=tps setelah berhasil menambahkan data
-    echo "<script>window.location=('index.php?aksi=tps');</script>";
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////
-elseif($_GET['aksi']=='inputmenu'){
-	mysqli_query($koneksi,"insert into menu (nama_menu,link,link_b,status,icon_menu,aktif) values ('$_POST[nama_menu]','$_POST[link]','$_POST[link_b]','$_POST[status]','$_POST[icon_menu]','$_POST[aktif]')");  
-echo "<script>window.location=('index.php?aksi=menu')</script>";
-}
-elseif($_GET['aksi']=='inputsubmenu'){
-	mysqli_query($koneksi,"insert into submenu (id_menu,nama_sub,link_sub,icon_sub) values ('$_POST[id_menu]','$_POST[nama_sub]','$_POST[link_sub]','$_POST[icon_sub]')");  
-echo "<script>window.location=('index.php?aksi=submenu')</script>";
-}
-elseif($_GET['aksi']=='inputgolongan'){
-	mysqli_query($koneksi,"insert into golongan (nama_gol) values ('$_POST[nama_gol]')");  
-echo "<script>window.location=('index.php?aksi=golongan')</script>";
-}
-elseif($_GET['aksi']=='inputjabatan'){
-	mysqli_query($koneksi,"insert into jabatan (nama_jabatan) values ('$_POST[nama_jabatan]')");  
-echo "<script>window.location=('index.php?aksi=jabatan')</script>";
-}
-elseif($_GET['aksi']=='inputprofesi'){
-	mysqli_query($koneksi,"insert into profesi (nama_profesi) values ('$_POST[nama_profesi]')");  
-echo "<script>window.location=('index.php?aksi=profesi')</script>";
+	mysqli_query($koneksi,"UPDATE pasien SET rot='sudah' WHERE id_pasien='$_POST[id_pasien]'");
+echo "<script>window.location=('index.php?aksi=rot')</script>";
 }
 elseif($_GET['aksi']=='inputadmin'){
 $nama  = $_POST['nama'];
