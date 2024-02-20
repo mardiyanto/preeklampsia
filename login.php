@@ -27,7 +27,7 @@
   <body class="hold-transition login-page">
     <div class="login-box">
       <div class="login-logo">
-        <a href="sys/bootstrap/index2.html"><b>Admin</b>LTE</a>
+        <a href="sys/bootstrap/index2.html"><b>Deteksi </b>Preeklampsia</a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
       <?php 

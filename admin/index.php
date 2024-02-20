@@ -6,158 +6,262 @@
     header("location:../login.php?alert=belum_login");
   }
   ?>
-<!DOCTYPE html>
-<html>
-  <head>
+<!doctype html>
+<html lang="en" class="blue-theme">
+
+<head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title><?php echo"$k_k[nama]";?></title>
-	    <!-- Bootstrap 3.3.5 -->
-		   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  <link rel="stylesheet" href="../sys/bootstrap/bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="../sys/bootstrap/font/css/font-awesome.min.css">
-  <link rel="stylesheet" href="../sys/bootstrap/plugins/datatables/dataTables.bootstrap.css">
-    <link rel="stylesheet" href="../sys/bootstrap/plugins/select2/select2.min.css">
-    <link rel="stylesheet" href="../sys/bootstrap/dist/css/AdminLTE.min.css">
-    <link rel="stylesheet" href="../sys/bootstrap/dist/css/skins/_all-skins.min.css">
-	 	<script src="../sys/bootstrap/plugins/ckeditor/ckeditor.js"></script>  
-     <style type="text/css">
-		#progress-bar1 {
-			background-color: red;
-			width:0%;
-			height:20px;
-			-webkit-transition: width .3s;
-			-moz-transition: width .3s;
-			transition: width .3s;
-		}
-    #progress-bar {
-      float: left;
-      width: 0;
-      height: 100%;
-      font-size: 12px;
-      line-height: 20px;
-      color: #fff;
-      text-align: center;
-      background-color: #337ab7;
-      -webkit-box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
-              box-shadow: inset 0 -1px 0 rgba(0, 0, 0, .15);
-      -webkit-transition: width .6s ease;
-          -o-transition: width .6s ease;
-              transition: width .6s ease;
-              background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-      background-image:      -o-linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-      background-image:         linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-      -webkit-background-size: 40px 40px;
-              background-size: 40px 40px;
-              -webkit-animation: progress-bar-stripes 2s linear infinite;
-       -o-animation: progress-bar-stripes 2s linear infinite;
-          animation: progress-bar-stripes 2s linear infinite;
-		}
-		#progress-div {
-			border:#ccc 1px solid;
-			margin:30px 0px;
-			border-radius:4px;
-			text-align:center;
-		}
-		</style>
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body class="hold-transition skin-blue sidebar-mini">
-    <div class="wrapper">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, viewport-fit=cover, user-scalable=no">
+    <meta name="description" content="">
+    <meta name="author" content="Maxartkiller">
 
-      <header class="main-header">
-        <!-- Logo -->
-        <a href="index.aspx" class="logo">
-          <!-- mini logo for sidebar mini 50x50 pixels -->
-          <span class="logo-mini"><b>Q</b> C</span>
-          <!-- logo for regular state and mobile devices -->
-          <span class="logo-lg">preeklampsia</span>
-        </a>
-        <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
-          <!-- Sidebar toggle button-->
-          <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-            <span class="sr-only">Toggle navigation</span>
-          </a>
-          <div class="navbar-custom-menu">
-            <ul class="nav navbar-nav">
-              <!-- User Account: style can be found in dropdown.less -->
-              <li class="dropdown user user-menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <img src="../foto/logo.png" class="user-image" alt="User Image">
-                  <span class="hidden-xs">preeklampsia</span>
-                </a>
-               
-              </li>
-              <!-- Control Sidebar Toggle Button -->
-        
-        
-            </ul>
-          </div>
-        </nav>
-      </header>
-      <!-- Left side column. contains the logo and sidebar -->
-      <aside class="main-sidebar">
-        <!-- sidebar: style can be found in sidebar.less -->
-        <section class="sidebar">
-          <!-- Sidebar user panel -->
-          <div class="user-panel">
-            <div class="pull-left image">
-              <img src="../foto/logo.png" class="img-circle" alt="User Image">
+    <title>Shop · GoFurniture</title>
+
+    <!-- Material design icons CSS -->
+    <link rel="stylesheet" href="../tema/vendor/materializeicon/material-icons.css">
+
+    <!-- Roboto fonts CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap core CSS -->
+    <link href="../tema/vendor/bootstrap-4.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Swiper CSS -->
+    <link href="../tema/vendor/swiper/css/swiper.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="../tema/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="row no-gutters vh-100 loader-screen">
+        <div class="col align-self-center text-white text-center">
+            <img src="../tema/img/logo.png" alt="logo">
+            <h1><span class="font-weight-light">Go</span>Furniture</h1>
+            <div class="laoderhorizontal">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
             </div>
-            <div class="pull-left info">
-              <p>SELAMAT DATANG</p>
-              <a href="index.aspx"><i class="fa fa-circle text-success"></i><?php echo"$k_k[nama]";?></a>
-            </div>
-          </div>
-          <!-- search form -->
-
-          <!-- /.search form -->
-          <!-- sidebar menu: : style can be found in sidebar.less -->
-      <?php include "menu.php"?>
-        </section>
-        <!-- /.sidebar -->
-      </aside>
-
-      <!-- Content Wrapper. Contains page content -->
-      <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-          <h1>
-            Dashboard
-            <small>Control panel kua</small>
-          </h1>
-          <ol class="breadcrumb">
-            <li><a href="index.aspx"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li class="active">Dashboard</li>
-          </ol>
-        </section>
-
-        <!-- Main content -->
-        <section class="content">
-		 <?php include "tengah.php"?>
-		  </div>
-		  </section>
-<!-- /.content-wrapper -->
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Version</b> 2.3.0
         </div>
-        <strong>Copyright &copy; 2014-2016 <a href="#">Almsaeed Studio / Web Progremer (<?php echo"$k_k[akabest]";?> )</a>.</strong>  All rights reserved.
-      </footer>
-      <div class="control-sidebar-bg"></div>
-    </div><!-- ./wrapper -->
+    </div>
+    <div class="sidebar">
+        <div class="text-center">
+            <div class="figure-menu shadow">
+                <figure><img src="../tema/img/user1.png" alt=""></figure>
+            </div>
+            <h5 class="mb-1 ">Ammy Jahnson</h5>
+            <p class="text-mute small">Sydney, Australia</p>
+        </div>
+        <br>
+        <div class="row mx-0">
+            <div class="col">
+                <div class="card mb-3 border-0 shadow-sm bg-template-light">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <p class="text-secondary small mb-0">Balance Available</p>
+                                <h6 class="text-dark my-0">$2585.00</h6>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-default button-rounded-36 shadow"><i class="material-icons">add</i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h5 class="subtitle text-uppercase"><span>Menu</span></h5>
+                <div class="list-group main-menu">
+                    <a href="index.html" class="list-group-item list-group-item-action active">Store</a>
+                    <a href="notification.html" class="list-group-item list-group-item-action">Notification <span class="badge badge-dark text-white">2</span></a>
+                    <a href="all-products.html" class="list-group-item list-group-item-action">All Products</a>
+                    <a href="my-order.html" class="list-group-item list-group-item-action">My Order</a>
+                    <a href="profile.html" class="list-group-item list-group-item-action">My Profile</a>
+                    <a href="controls.html" class="list-group-item list-group-item-action">Pages Controls <span class="badge badge-light ml-2">Check</span></a>
+                    <a href="setting.html" class="list-group-item list-group-item-action">Settings</a>
+                    <a href="login.html" class="list-group-item list-group-item-action mt-4">Logout</a>
+                </div>
+            </div>
+        </div>
 
+    </div>
+    <div class="wrapper">
+        <div class="header">
+            <div class="row no-gutters">
+                <div class="col-auto">
+                    <button class="btn  btn-link text-dark menu-btn"><img src="../tema/img/menu.png" alt=""><span class="new-notification"></span></button>
+                </div>
+                <div class="col text-center"><img src="img/logo-header.png" alt="" class="header-logo"></div>
+                <div class="col-auto">
+                    <a href="profile.html" class="btn  btn-link text-dark"><i class="material-icons">account_circle</i></a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <input type="text" class="form-control form-control-lg search my-3" placeholder="Search">
+            <?php include "tengah.php"?>
+        </div>
+     
     
-    <script src="../sys/bootstrap/plugins/jQuery/jQuery-2.1.4.min.js"></script>
-    <script src="js/jquery.form.js"></script>	
-<script src="js/script.js"></script>
-    <!-- DataTables -->
+        <div class="container mb-3">
+            <div class="row">
+                <div class="col text-center">
+                    <h5 class="subtitle mb-1">Most Exciting Feature</h5>
+                    <p class="text-secondary">Take a look at our services</p>
+                </div>
+            </div>
+            <div class="row text-center mt-4">
+                <div class="col-6 col-md-3">
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-body">
+                            <i class="material-icons mb-4 md-36 text-template">card_giftcard</i>
+                            <h2>2546</h2>
+                            <p class="text-secondary text-mute">Gift it out</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-body">
+                            <i class="material-icons mb-4 md-36 text-template">subscriptions</i>
+                            <h2>635</h2>
+                            <p class="text-secondary text-mute">Monthly Billed</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-body">
+                            <i class="material-icons mb-4 md-36 text-template">local_florist</i>
+                            <h2>1542</h2>
+                            <p class="text-secondary text-mute">Eco environment</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="card shadow-sm border-0 mb-4">
+                        <div class="card-body">
+                            <i class="material-icons mb-4 md-36 text-template">location_city</i>
+                            <h2>154</h2>
+                            <p class="text-secondary text-mute">Four Offices</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="no-gutters">
+                <div class="col-auto mx-auto">
+                    <div class="row no-gutters justify-content-center">
+                        <div class="col-auto">
+                            <a href="index.html" class="btn btn-link-default active">
+                                <i class="material-icons">store_mall_directory</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="statistics.html" class="btn btn-link-default">
+                                <i class="material-icons">insert_chart_outline</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="cart.html" class="btn btn-default shadow centerbutton">
+                                <i class="material-icons">local_mall</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="favorite-products.html" class="btn btn-link-default">
+                                <i class="material-icons">favorite</i>
+                            </a>
+                        </div>
+                        <div class="col-auto">
+                            <a href="profile.html" class="btn btn-link-default">
+                                <i class="material-icons">account_circle</i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- notification -->
+    <div class="notification bg-white shadow border-primary">
+        <div class="row">
+            <div class="col-auto align-self-center pr-0">
+                <i class="material-icons text-primary md-36">fullscreen</i>
+            </div>
+            <div class="col">
+                <h6>Viewing in Phone?</h6>
+                <p class="mb-0 text-secondary">Double tap to enter into fullscreen mode for each page.</p>
+            </div>
+            <div class="col-auto align-self-center pl-0">
+                <button class="btn btn-link closenotification"><i class="material-icons text-secondary text-mute md-18 ">close</i></button>
+            </div>
+        </div>
+    </div>
+    <!-- notification ends -->
+    
+    
+    <!-- jquery, popper and bootstrap js -->
+    <script src="../tema/js/jquery-3.3.1.min.js"></script>
+    <script src="../tema/js/popper.min.js"></script>
+    <script src="../tema/vendor/bootstrap-4.4.1/js/bootstrap.min.js"></script>
+
+    <!-- swiper js -->
+    <script src="../tema/vendor/swiper/js/swiper.min.js"></script>
+
+    <!-- template custom js -->
+    <script src="../tema/js/main.js"></script>
+
+    <!-- page level script -->
+    <script>
+        $(window).on('load', function() {
+            /* swiper slider carousel */
+            var swiper = new Swiper('.small-slide', {
+                slidesPerView: 'auto',
+                spaceBetween: 0,
+            });
+
+            var swiper = new Swiper('.news-slide', {
+                slidesPerView: 5,
+                spaceBetween: 0,
+                pagination: {
+                    el: '.swiper-pagination',
+                },
+                breakpoints: {
+                    1024: {
+                        slidesPerView: 4,
+                        spaceBetween: 0,
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 0,
+                    },
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 0,
+                    },
+                    320: {
+                        slidesPerView: 2,
+                        spaceBetween: 0,
+                    }
+                }
+            });
+
+            /* notification view and hide */
+            setTimeout(function() {
+                $('.notification').addClass('active');
+                setTimeout(function() {
+                    $('.notification').removeClass('active');
+                }, 3500);
+            }, 500);
+            $('.closenotification').on('click', function() {
+                $(this).closest('.notification').removeClass('active')
+            });
+        });
+
+    </script>
     <script src="../sys/bootstrap/plugins/datatables/jquery.dataTables.min.js"></script>
     <script src="../sys/bootstrap/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
@@ -175,76 +279,6 @@
         });
       });
     </script>
-    <!-- Bootstrap 3.3.5 -->
-    <script src="../sys/bootstrap/bootstrap/js/bootstrap.min.js"></script>
-    <!-- Select2 -->
-    <script src="../sys/bootstrap/plugins/select2/select2.full.min.js"></script>
-    <!-- InputMask -->
-    <script src="../sys/bootstrap/dist/js/app.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="../sys/bootstrap/dist/js/demo.js"></script>
-    <!-- Page script -->
-    <script>
-      $(function () {
-        //Initialize Select2 Elements
-        $(".select2").select2();
+</body>
 
-        //Datemask dd/mm/yyyy
-        $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-        //Datemask2 mm/dd/yyyy
-        $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-        //Money Euro
-        $("[data-mask]").inputmask();
-
-        //Date range picker
-        $('#reservation').daterangepicker();
-        //Date range picker with time picker
-        $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-        //Date range as a button
-        $('#daterange-btn').daterangepicker(
-            {
-              ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-              },
-              startDate: moment().subtract(29, 'days'),
-              endDate: moment()
-            },
-        function (start, end) {
-          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-        );
-
-        //iCheck for checkbox and radio inputs
-        $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-          checkboxClass: 'icheckbox_minimal-blue',
-          radioClass: 'iradio_minimal-blue'
-        });
-        //Red color scheme for iCheck
-        $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-          checkboxClass: 'icheckbox_minimal-red',
-          radioClass: 'iradio_minimal-red'
-        });
-        //Flat red color scheme for iCheck
-        $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-          checkboxClass: 'icheckbox_flat-green',
-          radioClass: 'iradio_flat-green'
-        });
-
-        //Colorpicker
-        $(".my-colorpicker1").colorpicker();
-        //color picker with addon
-        $(".my-colorpicker2").colorpicker();
-
-        //Timepicker
-        $(".timepicker").timepicker({
-          showInputs: false
-        });
-      });
-    </script>
-  </body>
 </html>

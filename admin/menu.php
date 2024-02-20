@@ -19,6 +19,7 @@
                 <li><a href='index.php?aksi=bmi'><i class='fa fa-arrows-h'></i> BMI</a></li>
                 <li><a href='index.php?aksi=map'><i class='fa fa-arrows-h'></i> MAP</a></li>
                 <li><a href='index.php?aksi=rot'><i class='fa fa-arrows-h'></i> ROT</a></li>
+
                </ul>
 </li>
 <li>      

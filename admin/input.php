@@ -42,6 +42,39 @@ elseif($_GET['aksi']=='inputrot'){
 	mysqli_query($koneksi,"UPDATE pasien SET rot='sudah' WHERE id_pasien='$_POST[id_pasien]'");
 echo "<script>window.location=('index.php?aksi=rot')</script>";
 }
+elseif($_GET['aksi']=='inputpertanyaan'){
+	// Memeriksa apakah input kosong
+	if (empty($_POST[nama_pertanyaan]) || empty($_POST[status_pertanyaan])|| empty($_POST[keterangan])) {
+		echo "<script>window.alert('Data yang Anda isikan belum lengkap');
+		window.location=('index.php?aksi=pertanyaan')</script>";
+		exit();
+	}	
+	mysqli_query($koneksi,"insert into pertanyaan (nama_pertanyaan,keterangan,status_pertanyaan) 
+	values ('$_POST[nama_pertanyaan]','$_POST[keterangan]','$_POST[status_pertanyaan]')");  
+	echo "<script>window.location=('index.php?aksi=pertanyaan')</script>";
+}
+elseif($_GET['aksi']=='inputjawaban'){
+	// Memeriksa apakah input kosong
+	if (empty($_POST[nama_jawaban]) || empty($_POST[id_pertanyaan])|| empty($_POST[nilai_jawaban])) {
+		echo "<script>window.alert('Data yang Anda isikan belum lengkap');
+		window.location=('index.php?aksi=jawaban')</script>";
+		exit();
+	}	
+	mysqli_query($koneksi,"insert into jawaban (nama_jawaban,id_pertanyaan,nilai_jawaban) 
+	values ('$_POST[nama_jawaban]','$_POST[id_pertanyaan]','$_POST[nilai_jawaban]')");  
+	echo "<script>window.location=('index.php?aksi=jawaban')</script>";
+}
+elseif($_GET['aksi']=='inputjawabanmodel'){
+	// Memeriksa apakah input kosong
+	if (empty($_POST[nama_jawaban]) || empty($_POST[id_pertanyaan])|| empty($_POST[nilai_jawaban])) {
+		echo "<script>window.alert('Data yang Anda isikan belum lengkap');
+		window.location=('index.php?aksi=pertanyaan')</script>";
+		exit();
+	}	
+	mysqli_query($koneksi,"insert into jawaban (nama_jawaban,id_pertanyaan,nilai_jawaban) 
+	values ('$_POST[nama_jawaban]','$_POST[id_pertanyaan]','$_POST[nilai_jawaban]')");  
+	echo "<script>window.location=('index.php?aksi=pertanyaan')</script>";
+}
 elseif($_GET['aksi']=='inputadmin'){
 $nama  = $_POST['nama'];
 $username = $_POST['username'];

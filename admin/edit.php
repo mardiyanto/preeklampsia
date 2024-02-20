@@ -34,6 +34,16 @@ elseif($_GET['aksi']=='proseseditrot'){
 	mysqli_query($koneksi,"UPDATE rot SET terlentang='$_POST[terlentang]',miring='$_POST[miring]', total_rot='$total' WHERE id_rot='$_GET[id_rot]'");
 echo "<script>window.location=('index.php?aksi=rot')</script>";
 }
+elseif($_GET['aksi']=='proseseditpertanyaan'){
+	mysqli_query($koneksi,"UPDATE pertanyaan SET nama_pertanyaan='$_POST[nama_pertanyaan]', keterangan='$_POST[keterangan]', status_pertanyaan='$_POST[status_pertanyaan]' WHERE id_pertanyaan='$_GET[id_pertanyaan]'");
+	echo "<script>window.alert('Data Berhasil di edit dan disimpan');
+	window.location=('index.php?aksi=pertanyaan')</script>";
+}
+elseif($_GET['aksi']=='proseseditjawaban'){
+	mysqli_query($koneksi,"UPDATE jawaban SET nama_jawaban='$_POST[nama_jawaban]', id_pertanyaan='$_POST[id_pertanyaan]', nilai_jawaban='$_POST[nilai_jawaban]' WHERE id_jawaban='$_GET[id_jawaban]'");
+	echo "<script>window.alert('Data Berhasil di edit dan disimpan');
+	window.location=('index.php?aksi=jawaban')</script>";
+}
 elseif($_GET['aksi']=='proseseditadmin'){
 $nama  = $_POST['nama'];
 $username = $_POST['username'];
