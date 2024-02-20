@@ -8,8 +8,10 @@
 
 ///////////////////////////lihat/////////////////////////////////////////////
 if($_GET['aksi']=='inputpasien'){
-	mysqli_query($koneksi,"insert into pasien (nama_pasien,nama_suami,umur_pasien,alamat_pasien) values ('$_POST[nama_pasien]','$_POST[nama_suami]','$_POST[umur_pasien]','$_POST[alamat_pasien]')");  
-	echo "<script>window.location=('index.php?aksi=pasien')</script>";
+	mysqli_query($koneksi,"insert into pasien (nama_pasien,nama_suami,umur_pasien,alamat_pasien) 
+	values ('$_POST[nama_pasien]','$_POST[nama_suami]','$_POST[umur_pasien]','$_POST[alamat_pasien]')");  
+	$id_pasien_baru = mysqli_insert_id($koneksi);
+	echo "<script>window.location=('index.php?aksi=detailpasien&id_pasien=$id_pasien_baru')</script>";
 }
 elseif($_GET['aksi']=='inputbmi'){
 	$tb=$_POST['tb']/100;
@@ -19,7 +21,7 @@ elseif($_GET['aksi']=='inputbmi'){
 
 	mysqli_query($koneksi,"insert into bmi (id_pasien,bb,tb,total_bmi) values ('$_POST[id_pasien]','$bb','$_POST[tb]','$total')");  
 	mysqli_query($koneksi,"UPDATE pasien SET bmi='sudah' WHERE id_pasien='$_POST[id_pasien]'");
-echo "<script>window.location=('index.php?aksi=bmi')</script>";
+echo "<script>window.location=('index.php?aksi=detailpasien&id_pasien=$_POST[id_pasien]')</script>";
 }
 elseif($_GET['aksi']=='inputmap'){
 	$diastole=$_POST['diastole'];
@@ -30,7 +32,7 @@ elseif($_GET['aksi']=='inputmap'){
 	mysqli_query($koneksi,"insert into map (id_pasien,sistole,diastole1,diastole2,total_map) values ('$_POST[id_pasien]','$sistole','$diastole','$diastole','$total')");  
 	
 	mysqli_query($koneksi,"UPDATE pasien SET map='sudah' WHERE id_pasien='$_POST[id_pasien]'");
-echo "<script>window.location=('index.php?aksi=map')</script>";
+echo "<script>window.location=('index.php?aksi=detailpasien&id_pasien=$_POST[id_pasien]')</script>";
 }
 
 elseif($_GET['aksi']=='inputrot'){
@@ -40,41 +42,9 @@ elseif($_GET['aksi']=='inputrot'){
 	mysqli_query($koneksi,"insert into rot (id_pasien,terlentang,miring,total_rot) values ('$_POST[id_pasien]','$terlentang','$miring','$total')");  
 
 	mysqli_query($koneksi,"UPDATE pasien SET rot='sudah' WHERE id_pasien='$_POST[id_pasien]'");
-echo "<script>window.location=('index.php?aksi=rot')</script>";
+echo "<script>window.location=('index.php?aksi=detailpasien&id_pasien=$_POST[id_pasien]')</script>";
 }
-elseif($_GET['aksi']=='inputpertanyaan'){
-	// Memeriksa apakah input kosong
-	if (empty($_POST[nama_pertanyaan]) || empty($_POST[status_pertanyaan])|| empty($_POST[keterangan])) {
-		echo "<script>window.alert('Data yang Anda isikan belum lengkap');
-		window.location=('index.php?aksi=pertanyaan')</script>";
-		exit();
-	}	
-	mysqli_query($koneksi,"insert into pertanyaan (nama_pertanyaan,keterangan,status_pertanyaan) 
-	values ('$_POST[nama_pertanyaan]','$_POST[keterangan]','$_POST[status_pertanyaan]')");  
-	echo "<script>window.location=('index.php?aksi=pertanyaan')</script>";
-}
-elseif($_GET['aksi']=='inputjawaban'){
-	// Memeriksa apakah input kosong
-	if (empty($_POST[nama_jawaban]) || empty($_POST[id_pertanyaan])|| empty($_POST[nilai_jawaban])) {
-		echo "<script>window.alert('Data yang Anda isikan belum lengkap');
-		window.location=('index.php?aksi=jawaban')</script>";
-		exit();
-	}	
-	mysqli_query($koneksi,"insert into jawaban (nama_jawaban,id_pertanyaan,nilai_jawaban) 
-	values ('$_POST[nama_jawaban]','$_POST[id_pertanyaan]','$_POST[nilai_jawaban]')");  
-	echo "<script>window.location=('index.php?aksi=jawaban')</script>";
-}
-elseif($_GET['aksi']=='inputjawabanmodel'){
-	// Memeriksa apakah input kosong
-	if (empty($_POST[nama_jawaban]) || empty($_POST[id_pertanyaan])|| empty($_POST[nilai_jawaban])) {
-		echo "<script>window.alert('Data yang Anda isikan belum lengkap');
-		window.location=('index.php?aksi=pertanyaan')</script>";
-		exit();
-	}	
-	mysqli_query($koneksi,"insert into jawaban (nama_jawaban,id_pertanyaan,nilai_jawaban) 
-	values ('$_POST[nama_jawaban]','$_POST[id_pertanyaan]','$_POST[nilai_jawaban]')");  
-	echo "<script>window.location=('index.php?aksi=pertanyaan')</script>";
-}
+
 elseif($_GET['aksi']=='inputadmin'){
 $nama  = $_POST['nama'];
 $username = $_POST['username'];

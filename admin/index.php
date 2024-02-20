@@ -34,6 +34,7 @@
 </head>
 
 <body>
+  
     <div class="row no-gutters vh-100 loader-screen">
         <div class="col align-self-center text-white text-center">
             <img src="../tema/img/logo.png" alt="logo">
@@ -57,29 +58,36 @@
         <br>
         <div class="row mx-0">
             <div class="col">
-                <div class="card mb-3 border-0 shadow-sm bg-template-light">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <p class="text-secondary small mb-0">Balance Available</p>
-                                <h6 class="text-dark my-0">$2585.00</h6>
-                            </div>
-                            <div class="col-auto">
-                                <button class="btn btn-default button-rounded-36 shadow"><i class="material-icons">add</i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+            <?php
+// Mendapatkan aksi saat ini dari parameter aksi di URL
+$current_action = isset($_GET['aksi']) ? $_GET['aksi'] : '';
+
+// Daftar link
+$links = array(
+    'home' => 'BERANDA',
+    'pasien' => 'PASIEN',
+    'bmi' => 'BMI',
+    'map' => 'MAP',
+    'rot' => 'ROT',
+    'profil' => 'Settings',
+    'admin' => 'Admin'
+); ?>
                 <h5 class="subtitle text-uppercase"><span>Menu</span></h5>
                 <div class="list-group main-menu">
-                    <a href="index.html" class="list-group-item list-group-item-action active">Store</a>
-                    <a href="notification.html" class="list-group-item list-group-item-action">Notification <span class="badge badge-dark text-white">2</span></a>
-                    <a href="all-products.html" class="list-group-item list-group-item-action">All Products</a>
-                    <a href="my-order.html" class="list-group-item list-group-item-action">My Order</a>
-                    <a href="profile.html" class="list-group-item list-group-item-action">My Profile</a>
-                    <a href="controls.html" class="list-group-item list-group-item-action">Pages Controls <span class="badge badge-light ml-2">Check</span></a>
-                    <a href="setting.html" class="list-group-item list-group-item-action">Settings</a>
-                    <a href="login.html" class="list-group-item list-group-item-action mt-4">Logout</a>
+                  <?php foreach ($links as $aksi => $label) {
+    $class = ($current_action == $aksi) ? 'active' : ''; 
+    echo "<a href='index.php?aksi=$aksi' class='list-group-item list-group-item-action $class'>$label</a>";
+}
+?>
+                    <!-- <a href="index.php?aksi=home" class="list-group-item list-group-item-action <?php echo"$class"; ?>" >BERANDA</a>
+                    <a href="index.php?aksi=pasien" class="list-group-item list-group-item-action <?php echo"$class"; ?>">PASIEN</a>
+                    <a href="index.php?aksi=bmi" class="list-group-item list-group-item-action <?php echo"$class"; ?>">BMI </a>
+                    <a href="index.php?aksi=map" class="list-group-item list-group-item-action <?php echo"$class"; ?>">MAP</a>
+                    <a href="index.php?aksi=rot" class="list-group-item list-group-item-action <?php echo"$class"; ?>">ROT</a>
+                    <a href="index.php?aksi=profil" class="list-group-item list-group-item-action <?php echo"$class"; ?>">Settings</a>
+                    <a href="index.php?aksi=admin" class="list-group-item list-group-item-action <?php echo"$class"; ?>">Admin</a> -->
+                    <a href="logout.php" class="list-group-item list-group-item-action mt-4">Logout</a>
                 </div>
             </div>
         </div>
@@ -91,118 +99,15 @@
                 <div class="col-auto">
                     <button class="btn  btn-link text-dark menu-btn"><img src="../tema/img/menu.png" alt=""><span class="new-notification"></span></button>
                 </div>
-                <div class="col text-center"><img src="img/logo-header.png" alt="" class="header-logo"></div>
+                <div class="col text-center"><img src="../img/logo-header.png" alt="" class="header-logo"></div>
                 <div class="col-auto">
-                    <a href="profile.html" class="btn  btn-link text-dark"><i class="material-icons">account_circle</i></a>
+                    <a href="index.php?aksi=admin" class="btn  btn-link text-dark"><i class="material-icons">account_circle</i></a>
                 </div>
             </div>
-        </div>
-        <div class="container">
-            <input type="text" class="form-control form-control-lg search my-3" placeholder="Search">
-            <?php include "tengah.php"?>
         </div>
      
-    
-        <div class="container mb-3">
-            <div class="row">
-                <div class="col text-center">
-                    <h5 class="subtitle mb-1">Most Exciting Feature</h5>
-                    <p class="text-secondary">Take a look at our services</p>
-                </div>
-            </div>
-            <div class="row text-center mt-4">
-                <div class="col-6 col-md-3">
-                    <div class="card shadow-sm border-0 mb-4">
-                        <div class="card-body">
-                            <i class="material-icons mb-4 md-36 text-template">card_giftcard</i>
-                            <h2>2546</h2>
-                            <p class="text-secondary text-mute">Gift it out</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="card shadow-sm border-0 mb-4">
-                        <div class="card-body">
-                            <i class="material-icons mb-4 md-36 text-template">subscriptions</i>
-                            <h2>635</h2>
-                            <p class="text-secondary text-mute">Monthly Billed</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="card shadow-sm border-0 mb-4">
-                        <div class="card-body">
-                            <i class="material-icons mb-4 md-36 text-template">local_florist</i>
-                            <h2>1542</h2>
-                            <p class="text-secondary text-mute">Eco environment</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-md-3">
-                    <div class="card shadow-sm border-0 mb-4">
-                        <div class="card-body">
-                            <i class="material-icons mb-4 md-36 text-template">location_city</i>
-                            <h2>154</h2>
-                            <p class="text-secondary text-mute">Four Offices</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <?php include "tengah.php"?>
 
-        <div class="footer">
-            <div class="no-gutters">
-                <div class="col-auto mx-auto">
-                    <div class="row no-gutters justify-content-center">
-                        <div class="col-auto">
-                            <a href="index.html" class="btn btn-link-default active">
-                                <i class="material-icons">store_mall_directory</i>
-                            </a>
-                        </div>
-                        <div class="col-auto">
-                            <a href="statistics.html" class="btn btn-link-default">
-                                <i class="material-icons">insert_chart_outline</i>
-                            </a>
-                        </div>
-                        <div class="col-auto">
-                            <a href="cart.html" class="btn btn-default shadow centerbutton">
-                                <i class="material-icons">local_mall</i>
-                            </a>
-                        </div>
-                        <div class="col-auto">
-                            <a href="favorite-products.html" class="btn btn-link-default">
-                                <i class="material-icons">favorite</i>
-                            </a>
-                        </div>
-                        <div class="col-auto">
-                            <a href="profile.html" class="btn btn-link-default">
-                                <i class="material-icons">account_circle</i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- notification -->
-    <div class="notification bg-white shadow border-primary">
-        <div class="row">
-            <div class="col-auto align-self-center pr-0">
-                <i class="material-icons text-primary md-36">fullscreen</i>
-            </div>
-            <div class="col">
-                <h6>Viewing in Phone?</h6>
-                <p class="mb-0 text-secondary">Double tap to enter into fullscreen mode for each page.</p>
-            </div>
-            <div class="col-auto align-self-center pl-0">
-                <button class="btn btn-link closenotification"><i class="material-icons text-secondary text-mute md-18 ">close</i></button>
-            </div>
-        </div>
-    </div>
-    <!-- notification ends -->
-    
-    
     <!-- jquery, popper and bootstrap js -->
     <script src="../tema/js/jquery-3.3.1.min.js"></script>
     <script src="../tema/js/popper.min.js"></script>
@@ -262,23 +167,7 @@
         });
 
     </script>
-    <script src="../sys/bootstrap/plugins/datatables/jquery.dataTables.min.js"></script>
-    <script src="../sys/bootstrap/plugins/datatables/dataTables.bootstrap.min.js"></script>
 
-    <!-- page script -->
-    <script>
-      $(function () {
-        $("#example1").DataTable();
-        $('#example2').DataTable({
-          "paging": true,
-          "lengthChange": false,
-          "searching": false,
-          "ordering": true,
-          "info": true,
-          "autoWidth": false
-        });
-      });
-    </script>
 </body>
 
 </html>

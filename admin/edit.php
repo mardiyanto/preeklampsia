@@ -9,7 +9,7 @@
 if($_GET['aksi']=='proseseditpasien'){
 mysqli_query($koneksi,"UPDATE pasien SET nama_pasien='$_POST[nama_pasien]',nama_suami='$_POST[nama_suami]',umur_pasien='$_POST[umur_pasien]',
 alamat_pasien='$_POST[alamat_pasien]' WHERE id_pasien='$_GET[id_pasien]'");
-echo "<script>window.location=('index.php?aksi=pasien')</script>";
+echo "<script>window.location=('index.php?aksi=detailpasien&id_pasien=$_GET[id_pasien]')</script>";
 }
 elseif($_GET['aksi']=='proseseditbmi'){
 	$tb=$_POST['tb']/100;
