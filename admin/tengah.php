@@ -434,17 +434,14 @@ include "../ikon.php";
 elseif($_GET['aksi']=='pasien'){
     echo"
     <div class='container'>
-    <div class='panel-body'>
+    <div class='jumbotron mb-3 bg-white'>
     <div class='table-responsive'>
         <table id='example1' class='table table-bordered table-striped'>
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Nama Pasien</th>
-                    <th>BMI</th>
-                    <th>MAP</th>
-                    <th>ROT</th>
-                    <th>Nama Suami</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
 ";
@@ -457,38 +454,10 @@ $no++;
                 <tr>
                     <td>$no</td>
                     <td>$t[nama_pasien]</td> 
-                    <td>";
-                    if ($t['bmi'] === "sudah") {
-                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Data BMI</button>"; 
-                    } else {
-                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#bmi$t[id_pasien]'>BMI</button>";  
-                    }
-                    echo"</td> 
-                    <td>";
-                    if ($t['map'] === "sudah") {
-                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Data MAP</button>"; 
-                    } else {
-                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#map$t[id_pasien]'>MAP</button>";  
-                    }
-                    echo"</td> 
-                    <td>";
-                    if ($t['rot'] === "sudah") {
-                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datarot$t[id_pasien]'>Data ROT</button>"; 
-                    } else {
-                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#rot$t[id_pasien]'>ROT</button>";  
-                    }
-                    echo"</td> 
-                    <td><div class='btn-group'>
-<button type='button' class='btn btn-info'>ubah</button>
-<button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown'>
-<span class='caret'></span>
-<span class='sr-only'>Toggle Dropdown</span>
-</button>
-<ul class='dropdown-menu' role='menu'>
-<li><a href='index.php?aksi=editpasien&id_pasien=$t[id_pasien]'>edit</a></li>
-<li><a href='hapus.php?aksi=hapuspasien&id_pasien=$t[id_pasien]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\">hapus</a></li>
-</ul>
-</div></td>
+                    <td><a class='btn btn-primary' href='index.php?aksi=editpasien&id_pasien=$t[id_pasien]'>edit</a>
+                    <a class='btn btn-primary' href='index.php?aksi=detailpasien&id_pasien=$t[id_pasien]'>lihat</a>
+                    <a class='btn btn-danger' href='hapus.php?aksi=hapuspasien&id_pasien=$t[id_pasien]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\">hapus</a>
+                    </td>
 </tr> 
             </tbody>";
 }
@@ -812,8 +781,8 @@ elseif($_GET['aksi']=='editpasien'){
         $tebaru=mysqli_query($koneksi," SELECT * FROM pasien WHERE id_pasien=$_GET[id_pasien] ");
         $t=mysqli_fetch_array($tebaru);
         echo"
-        <div class='row'>
-                        <div class='col-lg-12'>
+        <div class='container'>
+        <div class='jumbotron mb-3 bg-white'>
                             <div class='panel panel-default'>
                                 <div class='panel-heading'>EDIT
                                 </div>
@@ -828,7 +797,7 @@ elseif($_GET['aksi']=='editpasien'){
                 <input type='text' class='form-control' value='$t[umur_pasien]'  name='umur_pasien'/><br>
                 <label>alamat pasien</label>
                 <input type='text' class='form-control' value='$t[alamat_pasien]'  name='alamat_pasien'/><br>
-                <a href='index.php?aksi=kategori' class='btn btn-default' data-dismiss='modal'>kembali</a>
+                <a href='index.php?aksi=pasien' class='btn btn-default' data-dismiss='modal'>kembali</a>
                                                     <button type='submit' class='btn btn-primary'>Save </button>
                                                 </div> </div>
             </form></div> </div></div> 
@@ -836,8 +805,8 @@ elseif($_GET['aksi']=='editpasien'){
 }
 
 elseif($_GET['aksi']=='bmi'){
-    echo"<div class='row'>
-                    <div class='col-lg-12'>
+    echo"    <div class='container'>
+    <div class='jumbotron mb-3 bg-white'>
                         <div class='panel panel-default'>
                             <div class='panel-heading'>INFORMASI DATA
                             </div>
@@ -890,8 +859,8 @@ elseif($_GET['aksi']=='editbmi'){
     $tebaru=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and bmi.id_bmi=$_GET[id_bmi] ");
     $t=mysqli_fetch_array($tebaru);
     echo"
-    <div class='row'>
-                    <div class='col-lg-12'>
+    <div class='container'>
+    <div class='jumbotron mb-3 bg-white'>
                         <div class='panel panel-default'>
                             <div class='panel-heading'>$t[nama_pasien]
                             </div>
@@ -911,8 +880,8 @@ elseif($_GET['aksi']=='editbmi'){
     ";
 }
 elseif($_GET['aksi']=='map'){
-    echo"<div class='row'>
-                    <div class='col-lg-12'>
+    echo"    <div class='container'>
+    <div class='jumbotron mb-3 bg-white'>
                         <div class='panel panel-default'>
                             <div class='panel-heading'>INFORMASI DATA
                             </div>
@@ -965,8 +934,8 @@ elseif($_GET['aksi']=='editmap'){
     $tebaru=mysqli_query($koneksi," SELECT * FROM map,pasien WHERE map.id_pasien=pasien.id_pasien and map.id_map=$_GET[id_map] ");
     $t=mysqli_fetch_array($tebaru);
     echo"
-    <div class='row'>
-                    <div class='col-lg-12'>
+    <div class='container'>
+    <div class='jumbotron mb-3 bg-white'>
                         <div class='panel panel-default'>
                             <div class='panel-heading'>$t[nama_pasien]
                             </div>
@@ -986,8 +955,8 @@ elseif($_GET['aksi']=='editmap'){
     ";
 }
 elseif($_GET['aksi']=='rot'){
-    echo"<div class='row'>
-                    <div class='col-lg-12'>
+    echo"    <div class='container'>
+    <div class='jumbotron mb-3 bg-white'>
                         <div class='panel panel-default'>
                             <div class='panel-heading'>INFORMASI DATA
                             </div>
@@ -1040,8 +1009,8 @@ elseif($_GET['aksi']=='editrot'){
     $tebaru=mysqli_query($koneksi," SELECT * FROM rot,pasien WHERE rot.id_pasien=pasien.id_pasien and rot.id_rot=$_GET[id_rot] ");
     $t=mysqli_fetch_array($tebaru);
     echo"
-    <div class='row'>
-                    <div class='col-lg-12'>
+    <div class='container'>
+    <div class='jumbotron mb-3 bg-white'>
                         <div class='panel panel-default'>
                             <div class='panel-heading'>$t[nama_pasien]
                             </div>
@@ -1062,8 +1031,8 @@ elseif($_GET['aksi']=='editrot'){
 }
 elseif($_GET['aksi']=='profil'){
 echo"			
-	<div class='row'>
-	 <div class='col-xs-12'>
+<div class='container'>
+<div class='jumbotron mb-3 bg-white'>
               <div class='panel panel-primary'>
 			    <div class='box-header'>
 				   <h3 class='box-title'>INFORMASI PROFIL</h3>
@@ -1121,8 +1090,8 @@ elseif($_GET['aksi']=='editprofil'){
 $tebaru=mysqli_query($koneksi," SELECT * FROM profil WHERE id_profil=$_GET[id_p] ");
 $t=mysqli_fetch_array($tebaru);
 echo"
-<div class='row'>
-                <div class='col-lg-12'>
+<div class='container'>
+<div class='jumbotron mb-3 bg-white'>
                     <div class='panel panel-default'>
                         <div class='panel-heading'>EDIT PROFIL
                         </div>
@@ -1157,8 +1126,8 @@ echo"
 elseif($_GET['aksi']=='viewprofil'){
 $tebaru=mysqli_query($koneksi," SELECT * FROM profil WHERE id_profil=$_GET[id_p] ");
 $t=mysqli_fetch_array($tebaru);
-echo"<div class='row'>
-                <div class='col-lg-12'>
+echo"    <div class='container'>
+<div class='jumbotron mb-3 bg-white'>
                     <div class='panel panel-default'>
                         <div class='panel-heading'>$t[nama]
                         </div>
@@ -1171,8 +1140,8 @@ echo"$t[isi] </div></div></div></div></div>";
 
 
 elseif($_GET['aksi']=='admin'){
-echo"<div class='row'>
-                <div class='col-lg-12'>
+echo"    <div class='container'>
+<div class='jumbotron mb-3 bg-white'>
                     <div class='panel panel-default'>
                         <div class='panel-heading'>INFORMASI 
                         </div>
@@ -1268,8 +1237,8 @@ elseif($_GET['aksi']=='editadmin'){
 $tebaru=mysqli_query($koneksi," SELECT * FROM user WHERE user_id=$_GET[user_id]");
 $t=mysqli_fetch_array($tebaru);
 echo"
-<div class='row'>
-                <div class='col-lg-12'>
+<div class='container'>
+<div class='jumbotron mb-3 bg-white'>
                     <div class='panel panel-default'>
                         <div class='panel-heading'>EDIT  $t[user_nama] $t[user_id]
                         </div>
