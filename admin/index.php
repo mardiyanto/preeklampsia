@@ -7,7 +7,7 @@
   }
   ?>
 <!doctype html>
-<html lang="en" class="yellow-theme">
+<html lang="en" class="green-theme">
 
 <head>
     <meta charset="utf-8">
