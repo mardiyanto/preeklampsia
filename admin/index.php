@@ -38,7 +38,7 @@
     <div class="row no-gutters vh-100 loader-screen">
         <div class="col align-self-center text-white text-center">
             <img src="../tema/img/logo.png" alt="logo">
-            <h1><span class="font-weight-light">Go</span>Furniture</h1>
+            <h1><span class="font-weight-light">Go</span>PreeKlampsia</h1>
             <div class="laoderhorizontal">
                 <div></div>
                 <div></div>
@@ -99,7 +99,7 @@ $links = array(
                 <div class="col-auto">
                     <button class="btn  btn-link text-dark menu-btn"><img src="../tema/img/menu.png" alt=""><span class="new-notification"></span></button>
                 </div>
-                <div class="col text-center"><img src="../img/logo-header.png" alt="" class="header-logo"></div>
+                <div class="col text-center"><img src="../tema/img/logo-header.png" alt="" class="header-logo"></div>
                 <div class="col-auto">
                     <a href="index.php?aksi=admin" class="btn  btn-link text-dark"><i class="material-icons">account_circle</i></a>
                 </div>
@@ -167,7 +167,15 @@ $links = array(
         });
 
     </script>
+<!-- page level script -->
+<script>
+        $(window).on('load', function() {
+            $(function() {
+                $('[data-toggle="popover"]').popover()
+            })
+        });
 
+    </script>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 ///////////////////////////lihat/////////////////////////////////////////////
 if($_GET['aksi']=='home'){
 echo"
-<div class='container'>
+<div class='container'><div class='jumbotron mb-3 bg-white'>
 <div class='text-center'>
 <div class='figure-profile shadow my-4'>
     <figure><img src='../tema/img/user1.png' alt=''></figure>
@@ -51,7 +51,7 @@ echo"
 <button type='submit' class='btn btn-lg btn-default text-white btn-block btn-rounded shadow' class='btn btn-primary'><span>Save</span><i class='material-icons'>arrow_forward</i> </button>
 <br>
 </form> 
-</div> ";
+</div></div> ";
 include "bawah.php"; 
 }
 elseif($_GET['aksi']=='detailpasien'){
@@ -255,9 +255,13 @@ echo"
                    <label>Total </label>
                    <input type='text' class='form-control' value='$s[total_bmi]' disabled readonly><br>";
                    if ($s['total_bmi'] >= 28.8) {
-                      echo"<a href='' class='btn btn-danger'>preeklampsia</a>";
+                      echo"     <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
+                      preeklampsia
+                  </button>";
                   } else {
-                      echo"<a href='' class='btn btn-success'>Normal</a>";
+                      echo" <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
+                      preeklampsia
+                  </button><a href='' class='btn btn-success'>Normal</a>";
                   }
                    echo"
                    <br><br>
@@ -317,11 +321,15 @@ echo"
                                     <label>Total </label>
                                     <input type='text' class='form-control' value='$j[total_map]' disabled readonly><br>";
                                     if ($j['total_map'] >= 90) {
-                                       echo"<a href='' class='btn btn-danger'>preeklampsia</a>";
-                                   } else {
-                                       echo"<a href='' class='btn btn-success'>Normal</a>";
-                                   }
-                                    echo"
+                                        echo"     <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
+                                        preeklampsia
+                                    </button>";
+                                    } else {
+                                        echo" <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
+                                        preeklampsia
+                                    </button><a href='' class='btn btn-success'>Normal</a>";
+                                    }
+                                     echo"
                                     <br><br>
                                      
                                         <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
@@ -379,11 +387,15 @@ echo"
                                     <label>Total </label>
                                     <input type='text' class='form-control' value='$jx[total_rot]' disabled readonly><br>";
                                     if ($jx['total_rot'] >= 15) {
-                                       echo"<a href='' class='btn btn-danger'>preeklampsia</a>";
-                                   } else {
-                                       echo"<a href='' class='btn btn-success'>Normal</a>";
-                                   }
-                                    echo"
+                                        echo"     <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
+                                        preeklampsia
+                                    </button>";
+                                    } else {
+                                        echo" <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
+                                        preeklampsia
+                                    </button><a href='' class='btn btn-success'>Normal</a>";
+                                    }
+                                     echo"
                                     <br><br>
                                      
                                         <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
@@ -801,7 +813,8 @@ elseif($_GET['aksi']=='editpasien'){
                                                     <button type='submit' class='btn btn-primary'>Save </button>
                                                 </div> </div>
             </form></div> </div></div> 
-        ";	
+        ";
+        include "bawah.php"; 	
 }
 
 elseif($_GET['aksi']=='bmi'){
@@ -853,7 +866,8 @@ elseif($_GET['aksi']=='bmi'){
                             </div>
                         </div>
                     </div>
-                   </div>";		     
+                   </div>";	
+                   include "bawah.php"; 	     
 }                 	
 elseif($_GET['aksi']=='editbmi'){
     $tebaru=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and bmi.id_bmi=$_GET[id_bmi] ");
@@ -878,6 +892,7 @@ elseif($_GET['aksi']=='editbmi'){
                                             </div> </div>
         </form></div> </div></div></div>
     ";
+    include "bawah.php"; 
 }
 elseif($_GET['aksi']=='map'){
     echo"    <div class='container'>
@@ -928,7 +943,8 @@ elseif($_GET['aksi']=='map'){
                             </div>
                         </div>
                     </div>
-                   </div>";		     
+                   </div>";	
+                   include "bawah.php"; 	     
 }                 	
 elseif($_GET['aksi']=='editmap'){
     $tebaru=mysqli_query($koneksi," SELECT * FROM map,pasien WHERE map.id_pasien=pasien.id_pasien and map.id_map=$_GET[id_map] ");
@@ -953,6 +969,7 @@ elseif($_GET['aksi']=='editmap'){
                                             </div> </div>
         </form></div> </div></div></div>
     ";
+    include "bawah.php"; 
 }
 elseif($_GET['aksi']=='rot'){
     echo"    <div class='container'>
@@ -1003,7 +1020,8 @@ elseif($_GET['aksi']=='rot'){
                             </div>
                         </div>
                     </div>
-                   </div>";		     
+                   </div>";	
+                   include "bawah.php"; 	     
 }                 	
 elseif($_GET['aksi']=='editrot'){
     $tebaru=mysqli_query($koneksi," SELECT * FROM rot,pasien WHERE rot.id_pasien=pasien.id_pasien and rot.id_rot=$_GET[id_rot] ");
@@ -1028,6 +1046,7 @@ elseif($_GET['aksi']=='editrot'){
                                             </div> </div>
         </form></div> </div></div></div>
     ";
+    include "bawah.php"; 
 }
 elseif($_GET['aksi']=='profil'){
 echo"			
@@ -1080,6 +1099,7 @@ $no++;
                 </div>
                </div>	
 	";
+    include "bawah.php"; 
 }
 
 
@@ -1119,6 +1139,7 @@ echo"
                                         </div> </div>
     </form></div> </div></div> </div>
 ";
+include "bawah.php"; 
 }
 
 
@@ -1227,6 +1248,7 @@ echo"
                     </div>
 		    </div>			
 "; 
+include "bawah.php"; 
 }
 
 
@@ -1257,6 +1279,7 @@ echo"
     </form>  
 </div> </div></div></div>
 ";
+include "bawah.php"; 
 }
 
 ?>
