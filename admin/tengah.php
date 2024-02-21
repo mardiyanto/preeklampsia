@@ -159,7 +159,16 @@ elseif($_GET['aksi']=='detailpasien'){
               <div class='row'>
                   <div class='col'>";
                   if ($t['bmi'] === "sudah") {
-                      echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>LIHAT DATA BMI</button>"; 
+
+                    $lite1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
+                    $s1=mysqli_fetch_array($lite1);
+
+                    if ($s1['total_bmi'] >= 28.8) {
+                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Preeklampsia</button>";
+                    } else {
+                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Normal</button>";
+                    }
+                     
                   } else {
                       echo" <button type='button' class='btn btn-primary my-2' data-toggle='modal' data-target='#inputbmi$t[id_pasien]'>INPUT DATA BMI</button>";  
                   }
@@ -176,7 +185,13 @@ elseif($_GET['aksi']=='detailpasien'){
               <div class='row'>
                   <div class='col'>";
                   if ($t['map'] === "sudah") {
-                      echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datamap$t[id_pasien]'>LIHAT DATA MAP</button>"; 
+                    $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
+                    $s2=mysqli_fetch_array($lite2);
+                    if ($s2['total_map'] >= 90) {
+                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Preeklampsia</button>";
+                    } else {
+                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Normal</button>";
+                    }
                   } else {
                       echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#inputmap$t[id_pasien]'>INPUT DATA MAP</button>";  
                   }
@@ -192,7 +207,15 @@ elseif($_GET['aksi']=='detailpasien'){
           <div class='row'>
               <div class='col'>";
               if ($t['rot'] === "sudah") {
-                  echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datarot$t[id_pasien]'>LIHAT DATA ROT</button>"; 
+                $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
+                $s3=mysqli_fetch_array($lite3);
+                if ($s3['total_rot'] >= 15) {
+                    echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datarot$t[id_pasien]'>
+                    Preeklampsia
+                </button>";
+                } else {
+                    echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datarot$t[id_pasien]'>Normal</button>";
+                }
               } else {
                   echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#rot$t[id_pasien]'>INPUT DATA ROT</button>";  
               }
@@ -241,34 +264,35 @@ echo"
               <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
               
           </div>
-
           <div class='modal-body'>
-              <div class='form-group'>";
+          ";
               $sql1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
               $s=mysqli_fetch_array($sql1);
-              echo"
-                  
-                   <label>Berat Badan</label>
-                   <input type='text' class='form-control' value='$s[bb]'disabled readonly>
-                   <label>Tinggi Badan</label>
-                   <input type='text' class='form-control' value='$s[tb]' disabled readonly>
-                   <label>Total </label>
-                   <input type='text' class='form-control' value='$s[total_bmi]' disabled readonly><br>";
                    if ($s['total_bmi'] >= 28.8) {
-                      echo"     <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
-                      preeklampsia
-                  </button>";
+                      echo"<img src='../tema/img/preeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                      <!-- Teks di dalam modal -->
+                      <p>Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang</p>
+                      <p>Nama: $t[nama_pasien]</p>
+                      <p>Tinggi Badan: $s[tb] cm</p>
+                      <p>Berat Badan: $s[bb] kg</p>
+                      <p>Status:  <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
+                      Preeklampsia
+                  </button> ($s[total_bmi])</p>";
                   } else {
-                      echo" <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
-                      preeklampsia
-                  </button><a href='' class='btn btn-success'>Normal</a>";
+                    echo"<img src='../tema/img/nonpreeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                    <!-- Teks di dalam modal -->
+                    <p>Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan</p>
+                    <p>Nama: $t[nama_pasien]</p>
+                    <p>Tinggi Badan: $s[tb] cm</p>
+                    <p>Berat Badan: $s[bb] kg</p>
+                    <p>Status:  <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
+                    Normal
+                </button>   ($s[total_bmi])</p>";
                   }
                    echo"
                    <br><br>
                    <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
-                   <a href='index.php?aksi=editbmi&id_bmi=$s[id_bmi]' class='btn btn-primary'>Edit </a>
-                 
-               </div>                                            
+                   <a href='index.php?aksi=editbmi&id_bmi=$s[id_bmi]' class='btn btn-primary'>Edit </a>                                          
            </div>
 
        </div>
@@ -308,34 +332,36 @@ echo"
                                    
                                </div>
 
-                               <div class='modal-body'>
-                               <div class='form-group'>";
+                               <div class='modal-body'>";
                                $sql2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
                                $j=mysqli_fetch_array($sql2);
-                               echo"
-                               
-                                    <label>sistole</label>
-                                    <input type='text' class='form-control' value='$j[sistole]'disabled readonly>
-                                    <label>diastole</label>
-                                    <input type='text' class='form-control' value='$j[diastole1]' disabled readonly>
-                                    <label>Total </label>
-                                    <input type='text' class='form-control' value='$j[total_map]' disabled readonly><br>";
                                     if ($j['total_map'] >= 90) {
-                                        echo"     <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
-                                        preeklampsia
-                                    </button>";
+                                        echo"<img src='../tema/img/preeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                                        <!-- Teks di dalam modal -->
+                                        <p>Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang</p>
+                                        <p>Nama: $j[nama_pasien]</p>
+                                        <p>Sistole: $j[sistole]</p>
+                                        <p>Diastole: $j[diastole1]</p>
+                                        <p>Status:  <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
+                                        Preeklampsia
+                                    </button>  ($j[total_map])</p>";
                                     } else {
-                                        echo" <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
-                                        preeklampsia
-                                    </button><a href='' class='btn btn-success'>Normal</a>";
+                                        echo"<img src='../tema/img/nonpreeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                                        <!-- Teks di dalam modal -->
+                                        <p>Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan</p>
+                                        <p>Nama: $j[nama_pasien]</p>
+                                        <p>Sistole: $j[sistole]</p>
+                                        <p>Diastole: $j[diastole1]</p>
+                                        <p>Status:  <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
+                                        Normal
+                                    </button>   ($j[total_map])</p>";
                                     }
                                      echo"
                                     <br><br>
                                      
                                         <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                                         <a href='index.php?aksi=editmap&id_map=$j[id_map]' class='btn btn-primary'>Edit </a>
-                                   
-                                    </div>                                            
+                                                                           
                                 </div>
 
                             </div>
@@ -374,34 +400,36 @@ echo"
                                   
                                </div>
 
-                               <div class='modal-body'>
-                               <div class='form-group'>";
+                               <div class='modal-body'>";
                                $sql3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
                                $jx=mysqli_fetch_array($sql3);
-                               echo"
-                               
-                                    <label>Diastole Miring</label>
-                                    <input type='text' class='form-control' value='$jx[miring]'disabled readonly>
-                                    <label>Diastole Terlentang</label>
-                                    <input type='text' class='form-control' value='$jx[terlentang]' disabled readonly>
-                                    <label>Total </label>
-                                    <input type='text' class='form-control' value='$jx[total_rot]' disabled readonly><br>";
                                     if ($jx['total_rot'] >= 15) {
-                                        echo"     <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
-                                        preeklampsia
-                                    </button>";
+                                        echo"<img src='../tema/img/preeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                                        <!-- Teks di dalam modal -->
+                                        <p>Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang</p>
+                                        <p>Nama: $t[nama_pasien]</p>
+                                        <p>Diastole Miring: $jx[miring]</p>
+                                        <p>Diastole Terlentang: $jx[terlentang]</p>
+                                        <p>Status:  <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
+                                        Preeklampsia
+                                    </button> ($jx[total_rot])</p>";
                                     } else {
-                                        echo" <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
-                                        preeklampsia
-                                    </button><a href='' class='btn btn-success'>Normal</a>";
+                                        echo"<img src='../tema/img/nonpreeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                                        <!-- Teks di dalam modal -->
+                                        <p>Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan</p>
+                                        <p>Nama: $t[nama_pasien]</p>
+                                        <p>Diastole Miring: $jx[miring]</p>
+                                        <p>Diastole Terlentang: $jx[terlentang]</p>
+                                        <p>Status: <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
+                                        Normal
+                                    </button>  ($jx[total_rot])</p>";
                                     }
                                      echo"
                                     <br><br>
                                      
                                         <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
                                         <a href='index.php?aksi=editrot&id_rot=$jx[id_rot]' class='btn btn-primary'>Edit </a>
-                                   
-                                    </div>                                            
+                                                                          
                                 </div>
 
                             </div>
@@ -847,17 +875,9 @@ elseif($_GET['aksi']=='bmi'){
                                                 <td>$t[tb]</td> 
                                                 <td>$t[bb]</td> 
                                                 <td>$t[total_bmi]</td> 
-                                <td><div class='btn-group'>
-                          <button type='button' class='btn btn-info'>ubah</button>
-                          <button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown'>
-                            <span class='caret'></span>
-                            <span class='sr-only'>Toggle Dropdown</span>
-                          </button>
-                          <ul class='dropdown-menu' role='menu'>
-                            <li><a href='index.php?aksi=editbmi&id_bmi=$t[id_bmi]' title='Edit'><i class='fa fa-pencil'></i>edit</a></li>
-                            <li><a href='hapus.php?aksi=hapusbmi&id_bmi=$t[id_bmi]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
-                            </ul>
-                        </div></td>
+                                <td><a class='btn btn-primary' href='index.php?aksi=editbmi&id_bmi=$t[id_bmi]' title='Edit'><i class='fa fa-pencil'></i>edit</a>
+                            <a class='btn btn-primary' href='hapus.php?aksi=hapusbmi&id_bmi=$t[id_bmi]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</a>
+                        </td>
                                             </tr>";
     }
                                     echo"
@@ -924,17 +944,10 @@ elseif($_GET['aksi']=='map'){
                                                 <td>$t[sistole]</td> 
                                                 <td>$t[diastole1] + $t[diastole2]</td> 
                                                 <td>$t[total_map]</td> 
-                                <td><div class='btn-group'>
-                          <button type='button' class='btn btn-info'>ubah</button>
-                          <button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown'>
-                            <span class='caret'></span>
-                            <span class='sr-only'>Toggle Dropdown</span>
-                          </button>
-                          <ul class='dropdown-menu' role='menu'>
-                            <li><a href='index.php?aksi=editmap&id_map=$t[id_map]' title='Edit'><i class='fa fa-pencil'></i>edit</a></li>
-                            <li><a href='hapus.php?aksi=hapusmap&id_map=$t[id_map]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
-                            </ul>
-                        </div></td>
+                                <td>
+                          <a class='btn btn-primary' href='index.php?aksi=editmap&id_map=$t[id_map]' title='Edit'><i class='fa fa-pencil'></i>edit</a>
+                            <a class='btn btn-primary' href='hapus.php?aksi=hapusmap&id_map=$t[id_map]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</a>
+                           </td>
                                             </tr>";
     }
                                     echo"
@@ -1001,17 +1014,9 @@ elseif($_GET['aksi']=='rot'){
                                                 <td>$t[terlentang]</td> 
                                                 <td>$t[miring]</td> 
                                                 <td>$t[total_rot]</td> 
-                                <td><div class='btn-group'>
-                          <button type='button' class='btn btn-info'>ubah</button>
-                          <button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown'>
-                            <span class='caret'></span>
-                            <span class='sr-only'>Toggle Dropdown</span>
-                          </button>
-                          <ul class='dropdown-menu' role='menu'>
-                            <li><a href='index.php?aksi=editrot&id_rot=$t[id_rot]' title='Edit'><i class='fa fa-pencil'></i>edit</a></li>
-                            <li><a href='hapus.php?aksi=hapusrot&id_rot=$t[id_rot]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
-                            </ul>
-                        </div></td>
+                                <td><a class='btn btn-primary' href='index.php?aksi=editrot&id_rot=$t[id_rot]' title='Edit'><i class='fa fa-pencil'></i>edit</a>
+                                <a class='btn btn-primary' href='hapus.php?aksi=hapusrot&id_rot=$t[id_rot]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</a>
+                                </td>
                                             </tr>";
     }
                                     echo"
@@ -1078,17 +1083,9 @@ $no++;
                                     echo"
                                         <tr>
                                             <td>$no</td>
-                                            <td><div class='btn-group'>
-                      <button type='button' class='btn btn-info'>$t[nama]</button>
-                      <button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown'>
-                        <span class='caret'></span>
-                        <span class='sr-only'>Toggle Dropdown</span>
-                      </button>
-                      <ul class='dropdown-menu' role='menu'>
-                        <li><a href='index.php?aksi=editprofil&id_p=$t[id_profil]'>edit</a></li>
-						<li><a href='index.php?aksi=viewprofil&id_p=$t[id_profil]'>view</a></li>
-                        </ul>
-                    </div></td>
+                                            <td><a class='btn btn-primary' href='index.php?aksi=editprofil&id_p=$t[id_profil]'>edit</a> 
+                                            <a class='btn btn-primary' href='index.php?aksi=viewprofil&id_p=$t[id_profil]'>view</a>
+                                            </td>
                                        </tr>                                      
                                     ";
 }
@@ -1168,8 +1165,8 @@ echo"    <div class='container'>
                         </div>
                         <div class='panel-body'>	
 			<button class='btn btn-info' data-toggle='modal' data-target='#uiModal'>
-                                Tambah Data Admin
-                            </button>
+                                Tambah Data
+                            </button><br> <br>
                            	<div class='table-responsive'>		
 	 <table id='example1' class='table table-bordered table-striped'>
                                     <thead>
@@ -1187,16 +1184,8 @@ $no++;
                                     echo"<tbody>
                                         <tr>
                                             <td>$t[user_nama]</td>
-							<td><div class='btn-group'>
-                      <button type='button' class='btn btn-info'>$t[user_username]</button>
-                      <button type='button' class='btn btn-info dropdown-toggle' data-toggle='dropdown'>
-                        <span class='caret'></span>
-                        <span class='sr-only'>Toggle Dropdown</span>
-                      </button>
-                      <ul class='dropdown-menu' role='menu'>
-                        <li><a href='index.php?aksi=editadmin&user_id=$t[user_id]' title='Edit'><i class='fa fa-pencil'></i>edit</a></li>
-						<li><a href='hapus.php?aksi=hapusadmin&user_id=$t[user_id]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[user_username] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</li>
-                        </ul>
+							<td><a class='btn btn-primary' href='index.php?aksi=editadmin&user_id=$t[user_id]' title='Edit'><i class='fa fa-pencil'></i>edit</a>
+						<a class='btn btn-primary' href='hapus.php?aksi=hapusadmin&user_id=$t[user_id]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[user_username] ?')\" title='Hapus'><i class='fa fa-remove'></i>hapus</a>
                     </div></td>
                                         </tr>
                                     </tbody>";
@@ -1209,7 +1198,7 @@ $no++;
                </div>";			
 
 ////////////////input admin			
-
+include "bawah.php"; 
 echo"			
 <div class='col-lg-12'>
                         <div class='modal fade' id='uiModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
@@ -1248,7 +1237,7 @@ echo"
                     </div>
 		    </div>			
 "; 
-include "bawah.php"; 
+
 }
 
 

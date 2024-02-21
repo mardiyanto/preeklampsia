@@ -52,8 +52,8 @@
             <div class="figure-menu shadow">
                 <figure><img src="../tema/img/user1.png" alt=""></figure>
             </div>
-            <h5 class="mb-1 ">Ammy Jahnson</h5>
-            <p class="text-mute small">Sydney, Australia</p>
+            <h5 class="mb-1 ">Deteksi Dini</h5>
+            <p class="text-mute small">Preeklamsia Pada Ibu Hamil</p>
         </div>
         <br>
         <div class="row mx-0">
