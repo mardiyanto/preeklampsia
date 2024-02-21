@@ -7,7 +7,7 @@
   }
   ?>
 <!doctype html>
-<html lang="en" class="green-theme">
+<html lang="en" class="purple-theme">
 
 <head>
     <meta charset="utf-8">
@@ -52,8 +52,8 @@
             <div class="figure-menu shadow">
                 <figure><img src="../tema/img/user1.png" alt=""></figure>
             </div>
-            <h5 class="mb-1 ">Deteksi Dini</h5>
-            <p class="text-mute small">Preeklamsia Pada Ibu Hamil</p>
+            <h5 class="mb-1 ">Kalkulator</h5>
+            <p class="text-mute small">Preeklamsia By Fatmah Indriana Fuaida</p>
         </div>
         <br>
         <div class="row mx-0">

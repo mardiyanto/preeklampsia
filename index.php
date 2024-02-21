@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="green-theme">
+<html lang="en" class="purple-theme">
 
 <head>
     <meta charset="utf-8">
