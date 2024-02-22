@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" class="blue-theme">
+<html lang="en" class="purple-theme">
 
 <head>
     <meta charset="utf-8">
@@ -23,6 +23,27 @@
 
     <!-- Custom styles for this template -->
     <link href="tema/css/style.css" rel="stylesheet">
+    <style>
+        /* Gaya untuk membuat modal di tengah */
+        .modal {
+            text-align: center;
+            padding: 0!important;
+        }
+
+        .modal:before {
+            content: '';
+            display: inline-block;
+            height: 100%;
+            vertical-align: middle;
+            margin-right: -4px;
+        }
+
+        .modal-dialog {
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 
 <body>
@@ -61,21 +82,65 @@
                     </div>
                 </div>
             </form>
-            <?php 
-        if(isset($_GET['alert'])){
-          if($_GET['alert'] == "gagal"){
-            echo "
-            <p class='text-center text-white'>LOGIN GAGAL! USERNAME DAN PASSWORD SALAH!</p>";
-          }else if($_GET['alert'] == "logout"){
-            echo "<p class='text-center text-white'>ANDA TELAH BERHASIL LOGOUT</p>";
-          }else if($_GET['alert'] == "belum_login"){
-            echo "<p class='text-center text-white'>ANDA HARUS LOGIN UNTUK MENGAKSES DASHBOARD</p>";
-          }
-        }
-        ?>
         </div>
     </div>
-
+<!-- Modal Gagal Login -->
+<div class="modal fade" id="loginFailedModal" tabindex="-1" role="dialog" aria-labelledby="loginFailedModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginFailedModalLabel">Login Gagal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center text-danger">Username dan password salah. Silakan coba lagi.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- Modal loguot -->
+<div class="modal fade" id="logoutFailedModal" tabindex="-1" role="dialog" aria-labelledby="loginFailedModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginFailedModalLabel">Login Gagal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center text-danger">ANDA TELAH BERHASIL LOGOUT</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal login -->
+<div class="modal fade" id="loginFailedModal" tabindex="-1" role="dialog" aria-labelledby="loginFailedModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginFailedModalLabel">Login Gagal</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-center text-danger">ANDA HARUS LOGIN UNTUK MENGAKSES DASHBOARD</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- jquery, popper and bootstrap js -->
     <script src="tema/js/jquery-3.3.1.min.js"></script>
     <script src="tema/js/popper.min.js"></script>
@@ -86,7 +151,17 @@
 
     <!-- template custom js -->
     <script src="tema/js/main.js"></script>
-
+    <?php 
+        if(isset($_GET['alert'])){
+            if($_GET['alert'] == "gagal"){
+                echo "<script>$('#loginFailedModal').modal('show');</script>";
+            } else if($_GET['alert'] == "logout"){
+                echo "<script>$('#logoutFailedModal').modal('show');</script>";
+            } else if($_GET['alert'] == "belum_login"){
+                echo "<script>$('#loginFailedModal').modal('show')";
+            }
+        }
+    ?>
 </body>
 
 </html>
