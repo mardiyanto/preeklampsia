@@ -82,8 +82,11 @@
                     </div>
                 </div>
             </form>
+            <h4 class="text-white "><span class="font-weight-light">By.Fatmah Indriana Fuaida</span></h4>
         </div>
     </div>
+    
+       
 <!-- Modal Gagal Login -->
 <div class="modal fade" id="loginFailedModal" tabindex="-1" role="dialog" aria-labelledby="loginFailedModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">

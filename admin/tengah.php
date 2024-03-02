@@ -482,6 +482,9 @@ elseif($_GET['aksi']=='pasien'){
                     <th>No</th>
                     <th>Nama Pasien</th>
                     <th>Aksi</th>
+                    <th>BMI</th>
+                    <th>MAP</th>
+                    <th>ROT</th>
                 </tr>
             </thead>
 ";
@@ -498,8 +501,39 @@ $no++;
                     <a class='btn btn-primary' href='index.php?aksi=detailpasien&id_pasien=$t[id_pasien]'>lihat</a>
                     <a class='btn btn-danger' href='hapus.php?aksi=hapuspasien&id_pasien=$t[id_pasien]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\">hapus</a>
                     </td>
+                    <td>"; $lite1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
+                    $s1=mysqli_fetch_array($lite1);
+
+                    if ($s1['total_bmi'] >= 28.8) {
+                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Preeklampsia</button>";
+                    } else {
+                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Normal</button>";
+                    }
+                    echo"</td>
+                    <td>";  $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
+                    $s2=mysqli_fetch_array($lite2);
+                    if ($s2['total_map'] >= 90) {
+                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Preeklampsia</button>";
+                    } else {
+                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Normal</button>";
+                    }
+                    echo"</td>
+                    <td>";  $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
+                    $s3=mysqli_fetch_array($lite3);
+                    if ($s3['total_rot'] >= 15) {
+                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datarot$t[id_pasien]'>
+                        Preeklampsia
+                    </button>";
+                    } else {
+                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datarot$t[id_pasien]'>Normal</button>";
+                    }
+                    echo"</td>
 </tr> 
-            </tbody>";
+            </tbody>
+            
+            
+            
+            ";
 }
         echo"</table>
     </div>
