@@ -34,17 +34,39 @@ echo"
         <input type='text' class='form-control' name='nama_suami' required='' >
         <label class='form-control-label'>Nama Suami</label>
     </div>
+    
 </div>
-</div>
-
-<h6 class='subtitle'>Alamat</h6>
-
-<div class='row'>
 <div class='col-12 col-md-6'>
     <div class='form-group float-label active'>
-        <input type='text' class='form-control' required=''name='alamat_pasien'>
-        <label class='form-control-label'>Alamat Lengkap</label>
+        <input type='text' class='form-control' name='alamat_pasien' required='' >
+        <label class='form-control-label'>Alamat</label>
     </div>
+    
+</div>
+</div>
+
+<h6 class='subtitle'>Data Preeklampsia</h6>
+
+<div class='row'>
+<div class='col-6 col-md-4'>
+<label>Berat Badan</label>
+<input type='text' class='form-control' name='bb'/><br>
+<label>Tinggi Badan</label>
+<input type='text' class='form-control' name='tb'/><br> 
+</div>
+
+<div class='col-6 col-md-4'>
+<label>Sistole </label>
+<input type='text' class='form-control' name='sistole'/><br>
+<label>Diastole </label>
+<input type='text' class='form-control' name='diastole'/><br>
+</div>
+
+<div class='col-6 col-md-4'>
+<label>Diastole Terlentang</label>
+<input type='text' class='form-control' name='terlentang'/><br>
+<label>Diastole Miring</label>
+<input type='text' class='form-control' name='miring'/><br>
 </div>
 </div>
 
@@ -219,7 +241,8 @@ elseif($_GET['aksi']=='detailpasien'){
               } else {
                   echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#rot$t[id_pasien]'>INPUT DATA ROT</button>";  
               }
-              echo"</div>
+              $hasil=$s1['total_bmi'] + $s2['total_map'] + $s3['total_rot']; 
+               echo"</div>
           </div>
       </li>
   </ul>
@@ -227,11 +250,80 @@ elseif($_GET['aksi']=='detailpasien'){
 
 </div>
 <br>
+<div class='card mb-4 border-0 shadow-sm'>
+  <div class='card-body'>
+      <div class='row'>
+          
+          <div class='col-auto'>
+          <span class='btn btn-default p-3 btn-rounded-15'>
+              <i class='material-icons'>camera_enhance</i>
+          </span>
+      </div>
+      <div class='col pl-0'> 
+          <p class='text-secondary mb-1'>Kesimpulan</p>";
+          if ($hasil >= 133) {
+            echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#kesimpulan$t[id_pasien]'>
+            Preeklampsia
+        </button>";
+        } else {
+            echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#normalkesimpulan$t[id_pasien]'>Normal</button>";
+        }
+          echo"
+       
+      </div>
+          <div class='col-auto pl-0 align-self-center'>
+              <a href='index.php?aksi=home' class='btn btn-default button-rounded-36 shadow'><i class='material-icons'>add</i></a>
+          </div>
+      </div>
+  </div>
+</div>
 <button type='button' class='btn btn-lg btn-dark text-white btn-block btn-rounded shadow' data-toggle='modal' data-target='#edit$t[id_pasien]'><span>Edit Profile</span><i class='material-icons'>arrow_forward</i></button>
 <br>
 </div>";
 include "bawah.php"; 
 echo"
+<!-- Modal Kesimpulan normal-->
+    <div class='modal fade' id='normalkesimpulan$t[id_pasien]' tabindex='-1' role='dialog' aria-hidden='true'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='exampleModalLabel'>Modal title $t[id_pasien]</h5>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        <span aria-hidden='true'>×</span>
+                    </button>
+                </div>
+                <div class='modal-body'>
+               <img src='../tema/img/nonpreeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                <!-- Teks di dalam modal -->
+                <p>Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan</p>
+                <p>Nama: $t[nama_pasien]</p>
+                <p>Umur: $t[umur_pasien]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Kesimpulan-->
+    <div class='modal fade' id='kesimpulan$t[id_pasien]' tabindex='-1' role='dialog' aria-hidden='true'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header'>
+                    <h5 class='modal-title' id='exampleModalLabel'>Modal title $t[id_pasien]</h5>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'>
+                        <span aria-hidden='true'>×</span>
+                    </button>
+                </div>
+                <div class='modal-body'>
+                <img src='../tema/img/preeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                <!-- Teks di dalam modal -->
+                <p>Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang</p>
+                <p>Nama: $t[nama_pasien]</p>
+                <p>Umur: $t[umur_pasien]</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Modal BMI-->
     <div class='modal fade' id='inputbmi$t[id_pasien]' tabindex='-1' role='dialog' aria-hidden='true'>
         <div class='modal-dialog' role='document'>

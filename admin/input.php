@@ -11,6 +11,25 @@ if($_GET['aksi']=='inputpasien'){
 	mysqli_query($koneksi,"insert into pasien (nama_pasien,nama_suami,umur_pasien,alamat_pasien) 
 	values ('$_POST[nama_pasien]','$_POST[nama_suami]','$_POST[umur_pasien]','$_POST[alamat_pasien]')");  
 	$id_pasien_baru = mysqli_insert_id($koneksi);
+	
+	$tb=$_POST['tb']/100;
+	$kuadrat_tb = $tb * $tb;
+	$bb=$_POST['bb'];
+	$total1=$bb/$kuadrat_tb;
+	 mysqli_query($koneksi,"insert into bmi (id_pasien,bb,tb,total_bmi) values ('$id_pasien_baru','$bb','$_POST[tb]','$total1')");  
+
+	$terlentang=$_POST['terlentang'];
+	$miring=$_POST['miring'];
+	$total2=$terlentang-$miring;
+	mysqli_query($koneksi,"insert into rot (id_pasien,terlentang,miring,total_rot) values ('$id_pasien_baru','$terlentang','$miring','$total2')"); 
+	
+	$diastole=$_POST['diastole'];
+	$plus_diastole = $diastole + $diastole;
+	$sistole=$_POST['sistole'];
+	$total3=($sistole + $plus_diastole) / 3;
+	mysqli_query($koneksi,"insert into map (id_pasien,sistole,diastole1,diastole2,total_map) values ('$id_pasien_baru','$sistole','$diastole','$diastole','$total3')");   
+	mysqli_query($koneksi,"UPDATE pasien SET bmi='sudah',map='sudah',rot='sudah'  WHERE id_pasien='$id_pasien_baru'");
+
 	echo "<script>window.location=('index.php?aksi=detailpasien&id_pasien=$id_pasien_baru')</script>";
 }
 elseif($_GET['aksi']=='inputbmi'){
