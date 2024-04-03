@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 16 Jan 2024 pada 18.04
+-- Generation Time: 03 Apr 2024 pada 17.07
 -- Versi Server: 10.1.25-MariaDB
 -- PHP Version: 5.6.31
 
@@ -41,8 +41,9 @@ CREATE TABLE `bmi` (
 --
 
 INSERT INTO `bmi` (`id_bmi`, `tb`, `bb`, `total_bmi`, `id_pasien`) VALUES
-(1, '200', '70', '17.5', 1),
-(2, '123', '50', '33.049110978915', 2);
+(7, '123', '40', '26.439288783132', 7),
+(8, '165', '66', '24.242424242424', 8),
+(9, '165', '50', '18.365472910927', 9);
 
 -- --------------------------------------------------------
 
@@ -64,8 +65,9 @@ CREATE TABLE `map` (
 --
 
 INSERT INTO `map` (`id_map`, `id_pasien`, `sistole`, `diastole1`, `diastole2`, `total_map`) VALUES
-(1, 1, '110', '90', '90', '96.666666666667'),
-(2, 2, '110', '60', '60', '76.666666666667');
+(7, 7, '23', '23', '23', '23'),
+(8, 8, '34', '34', '34', '34'),
+(9, 9, '110', '60', '60', '76.666666666667');
 
 -- --------------------------------------------------------
 
@@ -75,23 +77,25 @@ INSERT INTO `map` (`id_map`, `id_pasien`, `sistole`, `diastole1`, `diastole2`, `
 
 CREATE TABLE `pasien` (
   `id_pasien` int(100) NOT NULL,
+  `id_user` int(10) NOT NULL,
   `nama_pasien` varchar(100) NOT NULL,
   `umur_pasien` varchar(100) NOT NULL,
   `nama_suami` varchar(100) NOT NULL,
   `alamat_pasien` text NOT NULL,
   `bmi` varchar(100) NOT NULL DEFAULT 'belum',
   `map` varchar(100) NOT NULL DEFAULT 'belum',
-  `rot` varchar(100) NOT NULL DEFAULT 'belum'
+  `rot` varchar(100) NOT NULL DEFAULT 'belum',
+  `sub_total` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `pasien`
 --
 
-INSERT INTO `pasien` (`id_pasien`, `nama_pasien`, `umur_pasien`, `nama_suami`, `alamat_pasien`, `bmi`, `map`, `rot`) VALUES
-(1, 'SUMI', '28', 'JONI', 'PRINGSEWU', 'sudah', 'sudah', 'sudah'),
-(2, 'NOVITA', '28', 'MARDI', 'PRINGSEWU', 'sudah', 'sudah', 'sudah'),
-(4, 'DPRD', '12', 'AKA', '12', 'belum', 'belum', 'belum');
+INSERT INTO `pasien` (`id_pasien`, `id_user`, `nama_pasien`, `umur_pasien`, `nama_suami`, `alamat_pasien`, `bmi`, `map`, `rot`, `sub_total`) VALUES
+(7, 2, 'aka', '23', '23', 'r', 'sudah', 'sudah', 'sudah', '52.744199881023'),
+(8, 2, 'NOVITA', '23', 'MARDI', 'PRINGSEWU', 'sudah', 'sudah', 'sudah', ''),
+(9, 2, 'DPRD', '28', 'MARDI', 'PRINGSEWU', 'sudah', 'sudah', 'sudah', '');
 
 -- --------------------------------------------------------
 
@@ -116,8 +120,7 @@ CREATE TABLE `profil` (
 --
 
 INSERT INTO `profil` (`id_profil`, `nama_app`, `tahun`, `nama`, `alias`, `alamat`, `isi`, `gambar`, `akabest`) VALUES
-(1, 'APP', '2022/2023', 'preeklampsia', 'IBU HAMIL', 'JL Wismarini No 09 Pringsewu Lampung', '', '26122022051024.jpg', 'mardybest@gmail.com'),
-(2, 're', '', 'MARDIYANTO', '19081989578978975', '', '', '', '');
+(1, 'APP', '2022/2023', 'preeklampsia', 'IBU HAMIL', 'JL Wismarini No 09 Pringsewu Lampung', 'tes', '26122022051024.jpg', 'mardybest@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -138,8 +141,9 @@ CREATE TABLE `rot` (
 --
 
 INSERT INTO `rot` (`id_rot`, `id_pasien`, `terlentang`, `miring`, `total_rot`) VALUES
-(1, 1, '123', '121', '2'),
-(2, 2, '123', '12', '111');
+(7, 7, '23', '23', '0'),
+(8, 8, '34', '34', '0'),
+(9, 9, '123', '121', '2');
 
 -- --------------------------------------------------------
 
@@ -150,20 +154,22 @@ INSERT INTO `rot` (`id_rot`, `id_pasien`, `terlentang`, `miring`, `total_rot`) V
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
   `user_nama` varchar(100) NOT NULL,
+  `email` varchar(100) DEFAULT NULL,
   `user_username` varchar(100) NOT NULL,
   `user_password` varchar(100) NOT NULL,
-  `user_foto` varchar(100) DEFAULT NULL
+  `user_foto` varchar(100) DEFAULT NULL,
+  `status` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data untuk tabel `user`
 --
 
-INSERT INTO `user` (`user_id`, `user_nama`, `user_username`, `user_password`, `user_foto`) VALUES
-(1, 'Adminatun Jhony', 'admin', '21232f297a57a5a743894a0e4a801fc3', '482937136_avatar.png'),
-(10, 'aka', 'aka', 'c4ca4238a0b923820dcc509a6f75849b', '1869563217_ilustrasi-ikan-lele-1_169.jpeg'),
-(11, 'tes', '123', '202cb962ac59075b964b07152d234b70', ''),
-(12, 'bangsat', 'bangsat', '528f980649c80a7269402447b51e815a', '1638032220_17-52-06-IMG-20221008-WA0001.jpg');
+INSERT INTO `user` (`user_id`, `user_nama`, `email`, `user_username`, `user_password`, `user_foto`, `status`) VALUES
+(1, 'admin', NULL, 'admin', '21232f297a57a5a743894a0e4a801fc3', NULL, 'admin'),
+(2, 'aka', NULL, 'aka', '6ac933301a3933c8a22ceebea7000326', NULL, 'user'),
+(3, 'user', 'user@gmail.com', 'user', '202cb962ac59075b964b07152d234b70', NULL, 'user'),
+(4, 'd', 'desrilmusa6@gmail.com', 'd', '8277e0910d750195b448797616e091ad', NULL, 'user');
 
 --
 -- Indexes for dumped tables
@@ -216,17 +222,17 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `bmi`
 --
 ALTER TABLE `bmi`
-  MODIFY `id_bmi` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_bmi` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `map`
 --
 ALTER TABLE `map`
-  MODIFY `id_map` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_map` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
-  MODIFY `id_pasien` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_pasien` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `profil`
 --
@@ -236,12 +242,12 @@ ALTER TABLE `profil`
 -- AUTO_INCREMENT for table `rot`
 --
 ALTER TABLE `rot`
-  MODIFY `id_rot` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_rot` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
