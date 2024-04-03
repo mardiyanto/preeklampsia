@@ -4,9 +4,14 @@
                 <i class='fa fa-dashboard'></i> <span>Dashboard</span> 
               </a> 
  </li>
+ <?php if ($_SESSION['user'] === 'admin' || $_SESSION['id'] == 1) {
+        // Izinkan akses ke semua data
+        // Lakukan sesuatu dengan data
+echo"
+
  <li>      
-      <a href="index.php?aksi=profil">
-                  <i class="fa fa-briefcase"></i> <span>PROFIL</span>
+      <a href='index.php?aksi=profil'>
+                  <i class='fa fa-briefcase'></i> <span>PROFIL</span>
                 </a>
               </li>
 <li class='treeview'>
@@ -23,11 +28,15 @@
                </ul>
 </li>
 <li>      
-      <a href="index.php?aksi=admin">
-                  <i class="fa fa-briefcase"></i> <span>Admin</span>
+      <a href='index.php?aksi=admin'>
+                  <i class='fa fa-briefcase'></i> <span>Admin</span>
                 </a>
               </li>
-      <li>      
+      <li> ";
+    } else {
+
+    }
+?>     
       <a href="logout.php">
                   <i class="fa fa-sign-out"></i> <span>LOGOUT</span>
                 </a>

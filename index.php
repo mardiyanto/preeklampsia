@@ -82,6 +82,10 @@
                     </div>
                 </div>
             </form>
+            <p class="text-center text-white">
+                Don't have account yet?<br>
+                <a href="signup.php">Sign Up</a> here.
+            </p>
             <h4 class="text-white "><span class="font-weight-light">By.Fatmah Indriana Fuaida</span></h4>
         </div>
     </div>

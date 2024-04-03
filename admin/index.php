@@ -60,6 +60,7 @@
             <div class="col">
 
             <?php
+    if ($_SESSION['user'] === 'admin' || $_SESSION['user_id'] == 1) {
 // Mendapatkan aksi saat ini dari parameter aksi di URL
 $current_action = isset($_GET['aksi']) ? $_GET['aksi'] : '';
 
@@ -78,6 +79,11 @@ $links = array(
                   <?php foreach ($links as $aksi => $label) {
     $class = ($current_action == $aksi) ? 'active' : ''; 
     echo "<a href='index.php?aksi=$aksi' class='list-group-item list-group-item-action $class'>$label</a>";
+}
+} else {
+    echo"<a href='index.php?aksi=home' class='list-group-item list-group-item-action' >BERANDA</a>
+    <a href='index.php?aksi=pasien' class='list-group-item list-group-item-action '>PASIEN</a>
+    <a href='index.php?aksi=admin' class='list-group-item list-group-item-action '>Admin</a>";  
 }
 ?>
                     <!-- <a href="index.php?aksi=home" class="list-group-item list-group-item-action <?php echo"$class"; ?>" >BERANDA</a>

@@ -19,6 +19,7 @@ if($sebagai == "administrator"){
 		$_SESSION['id'] = $data['user_id'];
 		$_SESSION['nama'] = $data['user_nama'];
 		$_SESSION['username'] = $data['user_username'];
+		$_SESSION['user'] = $data['status'];
 		$_SESSION['status'] = "administrator_logedin";
 		header("location:admin/index.php?aksi=home");
 	}else{

@@ -17,7 +17,7 @@ elseif($_GET['aksi']=='proseseditbmi'){
 	$bb=$_POST['bb'];
 	$total=$bb/$kuadrat_tb;
 	mysqli_query($koneksi,"UPDATE bmi SET bb='$_POST[bb]',tb='$_POST[tb]',total_bmi='$total' WHERE id_bmi='$_GET[id_bmi]'");
-	echo "<script>window.location=('index.php?aksi=bmi')</script>";
+	echo "<script>window.location=('index.php?aksi=pasien')</script>";
 }
 elseif($_GET['aksi']=='proseseditmap'){
 	$diastole=$_POST['diastole'];
@@ -25,14 +25,14 @@ elseif($_GET['aksi']=='proseseditmap'){
 	$sistole=$_POST['sistole'];
 	$total=($sistole + $plus_diastole) / 3;
 	mysqli_query($koneksi,"UPDATE map SET sistole='$_POST[sistole]',diastole1='$_POST[diastole]',diastole2='$_POST[diastole]',total_map='$total' WHERE id_map='$_GET[id_map]'");
-echo "<script>window.location=('index.php?aksi=map')</script>";
+echo "<script>window.location=('index.php?aksi=pasien')</script>";
 }
 elseif($_GET['aksi']=='proseseditrot'){
 	$terlentang=$_POST['terlentang'];
 	$miring=$_POST['miring'];
 	$total=$terlentang-$miring;
 	mysqli_query($koneksi,"UPDATE rot SET terlentang='$_POST[terlentang]',miring='$_POST[miring]', total_rot='$total' WHERE id_rot='$_GET[id_rot]'");
-echo "<script>window.location=('index.php?aksi=rot')</script>";
+echo "<script>window.location=('index.php?aksi=pasien')</script>";
 }
 elseif($_GET['aksi']=='proseseditpertanyaan'){
 	mysqli_query($koneksi,"UPDATE pertanyaan SET nama_pertanyaan='$_POST[nama_pertanyaan]', keterangan='$_POST[keterangan]', status_pertanyaan='$_POST[status_pertanyaan]' WHERE id_pertanyaan='$_GET[id_pertanyaan]'");

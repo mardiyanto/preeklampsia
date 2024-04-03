@@ -7,10 +7,17 @@
                                 <i class='material-icons'>store_mall_directory</i>
                             </a>
                         </div>
-                        <div class='col-auto'>
+                        <div class='col-auto'><?php if ($_SESSION['user'] === 'admin' || $_SESSION['id'] == 1) {
+                            echo"
                             <a href='index.php?aksi=profil' class='btn btn-link-default'>
                                 <i class='material-icons'>settings</i>
-                            </a>
+                            </a>";
+                        } else {
+                            echo"
+                            <a href='index.php?aksi=pasien' class='btn btn-link-default'>
+                                <i class='material-icons'>settings</i>
+                            </a>";
+                        } ?>
                         </div>
                         <div class='col-auto'>
                             <a href='index.php?aksi=home' class='btn btn-default shadow centerbutton'>
