@@ -567,6 +567,17 @@ elseif($_GET['aksi']=='pasien'){
     echo"
     <div class='container'>
     <div class='jumbotron mb-3 bg-white'>
+    <form method='GET' action='index.php'>
+    <div class='row'>
+    <div class='col-6 col-md-4'>
+    <input type='hidden' name='aksi' value='caripasien'>
+    <input type='text' class='form-control' name='nama' placeholder='Masukkan Kata Kunci'>
+    </div>
+    <div class='col-6 col-md-4'>
+    <button type='submit' class='btn btn-default'>Cari</button>
+    <a href='cetak.php' target='_blank' class='btn btn-default'>PDF</a>
+    </div>
+    </form><br><br>
     <div class='table-responsive'>
         <table id='example1' class='table table-bordered table-striped'>
             <thead>
@@ -671,12 +682,145 @@ while ($t = mysqli_fetch_array($tebaru)) {
 </tr> 
         </tbody>
         ";
-        } else {
-            // Jika bukan admin dan bukan user dengan id 1,
-            // dan bukan data yang sesuai dengan id pengguna,
-            // maka pengguna tidak memiliki akses ke data ini
-            echo "Anda tidak memiliki izin untuk mengakses data ini.<br>";
+        } 
+    }
+}
+        echo"</table>
+    </div>
+    </div></div> ";
+    include "bawah.php";   
+   
+    
+}
+elseif($_GET['aksi']=='caripasien'){
+    echo"
+    <div class='container'>
+    <div class='jumbotron mb-3 bg-white'>
+    <form method='GET' action='index.php'>
+    <div class='row'>
+    <div class='col-6 col-md-4'>
+    <input type='hidden' name='aksi' value='caripasien'>
+    <input type='text' class='form-control' name='nama' placeholder='Masukkan Kata Kunci'>
+    </div>
+    <div class='col-6 col-md-4'>
+    <button type='submit' class='btn btn-default'>Cari</button>
+    <a href='cetak.php' target='_blank' class='btn btn-default'>PDF</a>
+    </div>
+    </form><br><br>
+    <div class='table-responsive'>";
+    if (isset($_GET['nama'])) {
+        $keyword = $_GET['nama'];
+        // Kueri SQL untuk mencari pasien berdasarkan nama
+        $query = "SELECT * FROM pasien WHERE nama_pasien LIKE '%$keyword%'";
+        $result = mysqli_query($koneksi, $query);
+    } else { 
+            // Tampilkan pesan jika tidak ada kata kunci yang dimasukkan
+            echo "<p>Silakan masukkan kata kunci untuk melakukan pencarian.</p>";
         }
+   
+
+        echo"<table id='example1' class='table table-bordered table-striped'>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Nama Pasien</th>
+                    <th>Aksi</th>
+                    <th>BMI</th>
+                    <th>MAP</th>
+                    <th>ROT</th>
+                </tr>
+            </thead>
+";
+while ($t = mysqli_fetch_assoc($result)) {
+    $no++;    
+    // Memeriksa apakah pengguna adalah admin atau memiliki id 1
+    if ($_SESSION['user'] === 'admin' || $_SESSION['user_id'] == 1) {
+        // Izinkan akses ke semua data
+        // Lakukan sesuatu dengan data
+        echo"<tbody>
+        <tr>
+            <td>$no</td>
+            <td>$t[nama_pasien]</td> 
+            <td><a class='btn btn-primary' href='index.php?aksi=editpasien&id_pasien=$t[id_pasien]'>edit</a>
+            <a class='btn btn-primary' href='index.php?aksi=detailpasien&id_pasien=$t[id_pasien]'>lihat</a>
+            <a class='btn btn-danger' href='hapus.php?aksi=hapuspasien&id_pasien=$t[id_pasien]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\">hapus</a>
+            </td>
+            <td>"; $lite1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
+            $s1=mysqli_fetch_array($lite1);
+
+            if ($s1['total_bmi'] >= 28.8) {
+                echo"<a class='btn btn-danger' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Preeklampsia</a>";
+            } else {
+                echo"<a class='btn btn-success' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Normal</a>";
+            }
+            echo"</td>
+            <td>";  $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
+            $s2=mysqli_fetch_array($lite2);
+            if ($s2['total_map'] >= 90) {
+                echo"<a class='btn btn-danger' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Preeklampsia</a>";
+            } else {
+                echo"<a class='btn btn-success' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Normal</a>";
+            }
+            echo"</td>
+            <td>";  $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
+            $s3=mysqli_fetch_array($lite3);
+            if ($s3['total_rot'] >= 15) {
+                echo"<a  class='btn btn-danger' href='index.php?aksi=editrot&id_rot=$s3[id_rot]'>
+                Preeklampsia
+            </a>";
+            } else {
+                echo"<a  class='btn btn-success' href='index.php?aksi=editrot&id_rot=$s3[id_rot]' >Normal</a>";
+            }
+            echo"</td>
+</tr> 
+    </tbody>
+    
+    ";
+    } else {
+        // Jika bukan admin atau user dengan id 1,
+        // maka periksa apakah id pengguna sama dengan id di data saat ini
+        if ($_SESSION['id'] == $t['id_user']) {
+            // Izinkan akses ke data yang sesuai dengan id pengguna
+            // Lakukan sesuatu dengan data
+            echo"<tbody>
+            <tr>
+                <td>$no</td>
+                <td>$t[nama_pasien]</td> 
+                <td><a class='btn btn-primary' href='index.php?aksi=editpasien&id_pasien=$t[id_pasien]'>edit</a>
+                <a class='btn btn-primary' href='index.php?aksi=detailpasien&id_pasien=$t[id_pasien]'>lihat</a>
+                <a class='btn btn-danger' href='hapus.php?aksi=hapuspasien&id_pasien=$t[id_pasien]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\">hapus</a>
+                </td>
+                <td>"; $lite1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
+                $s1=mysqli_fetch_array($lite1);
+
+                if ($s1['total_bmi'] >= 28.8) {
+                    echo"<a class='btn btn-danger' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Preeklampsia</a>";
+                } else {
+                    echo"<a class='btn btn-success' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Normal</a>";
+                }
+                echo"</td>
+                <td>";  $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
+                $s2=mysqli_fetch_array($lite2);
+                if ($s2['total_map'] >= 90) {
+                    echo"<a class='btn btn-danger' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Preeklampsia</a>";
+                } else {
+                    echo"<a class='btn btn-success' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Normal</a>";
+                }
+                echo"</td>
+                <td>";  $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
+                $s3=mysqli_fetch_array($lite3);
+                if ($s3['total_rot'] >= 15) {
+                    echo"<a  class='btn btn-danger' href='index.php?aksi=editrot&id_rot=$s3[id_rot]'>
+                    Preeklampsia
+                </a>";
+                } else {
+                    echo"<a  class='btn btn-success' href='index.php?aksi=editrot&id_rot=$s3[id_rot]' >Normal</a>";
+                }
+                echo"</td>
+</tr> 
+        </tbody>
+        ";
+        } 
     }
 }
         echo"</table>
