@@ -211,11 +211,16 @@ elseif($_GET['aksi']=='detailpasien'){
                   if ($t['bmi'] === "sudah") {
                      echo"<button type='button' class='btn btn-primary my-2'>$s1[tgl]</button> ";
                     if ($s1['total_bmi'] >= 28.8) {
-                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Preeklampsia</button>
-                        <button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>$s1[total_bmi]</button>";
+                        // echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Preeklampsia</button>
+                        // <button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>$s1[total_bmi]</button>";
+                        echo"<a href='index.php?aksi=detailbmi&id_bmi=$s1[id_bmi]' class='btn btn-danger'>Preeklampsia</a>
+                        <a href='index.php?aksi=detailbmi&id_bmi=$s1[id_bmi]' class='btn btn-danger'>$s1[total_bmi]</a>";
+                        
                     } else {
-                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Normal</button>
-                             <button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>$s1[total_bmi]</button>";
+                        // echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Normal</button>
+                        //      <button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>$s1[total_bmi]</button>";
+                             echo"<a href='index.php?aksi=detailbmi&id_bmi=$s1[id_bmi]' class='btn btn-success' >Normal</a>
+                             <a href='index.php?aksi=detailbmi&id_bmi=$s1[id_bmi]' class='btn btn-success' >$s1[total_bmi]</a>";
                     }
                      
                   } else {
@@ -1285,6 +1290,53 @@ elseif($_GET['aksi']=='editbmi'){
                                                 <button type='submit' class='btn btn-primary'>Save </button>
                                             </div> </div>
         </form></div> </div></div></div>
+    ";
+    include "bawah.php"; 
+}
+elseif($_GET['aksi']=='detailbmi'){
+    $tebaru=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and bmi.id_bmi=$_GET[id_bmi] ");
+    $t=mysqli_fetch_array($tebaru);
+    echo"
+    <div class='container'>
+    <div class='jumbotron mb-3 bg-white'>
+      <div class='modal-content'>
+      <a  href='index.php?aksi=detailpasien&id_pasien=$t[id_pasien]' class='btn btn-default' >KEMBALI</a>
+      <a href='index.php?aksi=editbmi&id_bmi=$s[id_bmi]' class='btn btn-primary'>Edit </a> 
+          <div class='modal-header'><h4 class='modal-title' id='H3'>Data BMI $t[nama_pasien]</h4> 
+          </div>
+          <div class='modal-body'>
+          ";
+              $sql1=mysqli_query($koneksi," SELECT * FROM bmi WHERE id_pasien=$t[id_pasien] ");
+              $s=mysqli_fetch_array($sql1);
+                   if ($s['total_bmi'] >= 28.8) {
+                      echo"<img src='../tema/img/preeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                      <!-- Teks di dalam modal -->
+                      <p>Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang</p>
+                      <p>Nama: $t[nama_pasien]</p>
+                      <p>Tinggi Badan: $s[tb] cm</p>
+                      <p>Berat Badan: $s[bb] kg</p>
+                      <p>Status:  <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
+                      Preeklampsia
+                  </button> ($s[total_bmi])</p>";
+                  } else {
+                    echo"<img src='../tema/img/nonpreeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                    <!-- Teks di dalam modal -->
+                    <p>Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan</p>
+                    <p>Nama: $t[nama_pasien]</p>
+                    <p>Tinggi Badan: $s[tb] cm</p>
+                    <p>Berat Badan: $s[bb] kg</p>
+                    <p>Status:  <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
+                    Normal
+                </button>   ($s[total_bmi])</p>";
+                  }
+                   echo"
+                   <br><br>
+                                                            
+           </div>
+
+       </div>
+     </div>
+    </div>                  
     ";
     include "bawah.php"; 
 }
