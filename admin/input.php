@@ -7,10 +7,19 @@
   }
 ///////////////////////////lihat/////////////////////////////////////////////
 if($_GET['aksi']=='inputpasien'){
-	mysqli_query($koneksi,"insert into pasien (nama_pasien,nik,nama_suami,umur_pasien,alamat_pasien,id_user) 
-	values ('$_POST[nama_pasien]','$_POST[nik]','$_POST[nama_suami]','$_POST[umur_pasien]','$_POST[alamat_pasien]','$_SESSION[id]')");  
+$nik = $_POST['nik'];
+// Periksa apakah NIK sudah ada di database
+$sql_check = "SELECT * FROM pasien WHERE nik = '$nik'";
+$result = $koneksi->query($sql_check);
+
+if ($result->num_rows > 0) {
+    // Jika NIK sudah ada, tampilkan peringatan
+    echo "<script>alert('NIK sudah ada di database. Data tidak dapat disimpan.'); window.location.href = 'index.php?aksi=home';</script>";
+} else {
+    // Jika NIK belum ada, simpan data baru
+    mysqli_query($koneksi,"insert into pasien (nama_pasien,nik,nama_suami,umur_pasien,alamat_pasien,id_user) 
+	values ('$_POST[nama_pasien]','$_POST[nik]','$_POST[nama_suami]','$_POST[umur_pasien]','$_POST[alamat_pasien]','$_SESSION[id]')"); 
 	$id_pasien_baru = mysqli_insert_id($koneksi);
-	
 	$tb=$_POST['tb']/100;
 	$kuadrat_tb = $tb * $tb;
 	$bb=$_POST['bb'];
@@ -28,7 +37,7 @@ if($_GET['aksi']=='inputpasien'){
 	$total3=($sistole + $plus_diastole) / 3;
 	mysqli_query($koneksi,"insert into map (id_pasien,sistole,diastole1,diastole2,total_map) values ('$id_pasien_baru','$sistole','$diastole','$diastole','$total3')");   
 	mysqli_query($koneksi,"UPDATE pasien SET bmi='sudah',map='sudah',rot='sudah'  WHERE id_pasien='$id_pasien_baru'");
-
+}
 	echo "<script>window.location=('index.php?aksi=detailpasien&id_pasien=$id_pasien_baru')</script>";
 }
 elseif($_GET['aksi']=='inputbmi'){
