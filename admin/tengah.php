@@ -23,20 +23,29 @@ echo"
 </div>
 <div class='col-12 col-md-6'>
     <div class='form-group float-label active'>
-        <input type='text' name='umur_pasien' class='form-control' required=''>
-        <label class='form-control-label'>Umur</label>
+        <input type='text' name='nik' class='form-control' required=''>
+        <label class='form-control-label'>Nik</label>
     </div>
 </div>
 </div>
 <div class='row'>
 <div class='col-12 col-md-6'>
     <div class='form-group float-label active'>
-        <input type='text' class='form-control' name='nama_suami' required='' >
-        <label class='form-control-label'>Nama Suami</label>
+    <input type='text' name='umur_pasien' class='form-control' required=''>
+    <label class='form-control-label'>Umur</label>
     </div>
     
 </div>
 <div class='col-12 col-md-6'>
+    <div class='form-group float-label active'>
+    <input type='text' class='form-control' name='nama_suami' required='' >
+    <label class='form-control-label'>Nama Suami</label>
+    </div>
+    
+</div>
+</div>
+<div class='row'>
+<div class='col-12 col-md-12'>
     <div class='form-group float-label active'>
         <input type='text' class='form-control' name='alamat_pasien' required='' >
         <label class='form-control-label'>Alamat</label>
@@ -44,7 +53,6 @@ echo"
     
 </div>
 </div>
-
 <h6 class='subtitle'>Data Preeklampsia</h6>
 
 <div class='row'>
@@ -127,9 +135,9 @@ elseif($_GET['aksi']=='detailpasien'){
       </div>
   </div>
 </div>
-<nav>
+<nav> 
+<h1 class='nav-item nav-link text-left active'>Riwayat Priksa $t[nama_pasien]</h1>
   <div class='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
-
       <a class='nav-item nav-link text-left active' id='nav-delivery-tab' data-toggle='tab' href='#nav-delivery' role='tab' aria-controls='nav-delivery' aria-selected='true'>
           <div class='row'>
               <div class='col-auto align-self-center pr-1'>
@@ -170,6 +178,21 @@ elseif($_GET['aksi']=='detailpasien'){
               <h6 class='text-dark my-0'>ROT</h6>
           </div>
       </div>
+      
+  </a>
+  <a  class='nav-item nav-link text-left' >
+      <div class='row'>
+          <div class='col-auto align-self-center pr-1'>
+              <span class='btn btn-success button-rounded-26'>
+              <i class='material-icons md-18 text-mute'>print</i>
+              </span>
+          </div>
+          <div class='col pl-2'>
+              <p class='text-secondary mb-0 small text-truncate'>Print Data</p>
+              <h6 class='text-dark my-0'>Print</h6>
+          </div>
+      </div>
+      
   </a>
   </div>
   
@@ -177,107 +200,136 @@ elseif($_GET['aksi']=='detailpasien'){
 <div class='tab-content' id='nav-tabContent'>
   <div class='tab-pane fade show active' id='nav-delivery' role='tabpanel' aria-labelledby='nav-delivery-tab'>
       <ul class='list-items'>
-          <li>
+          <li>    ";
+          $lite1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
+           while ( $s1 = mysqli_fetch_array($lite1)) {
+           echo"
               <div class='row'>
-                  <div class='col'>";
+          
+                  <div class='col'>
+                  ";
                   if ($t['bmi'] === "sudah") {
-
-                    $lite1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
-                    $s1=mysqli_fetch_array($lite1);
-
+                     echo"<button type='button' class='btn btn-primary my-2'>$s1[tgl]</button> ";
                     if ($s1['total_bmi'] >= 28.8) {
-                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Preeklampsia</button>";
+                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Preeklampsia</button>
+                        <button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>$s1[total_bmi]</button>";
                     } else {
-                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Normal</button>";
+                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>Normal</button>
+                             <button type='button' class='btn btn-success' data-toggle='modal' data-target='#databmi$t[id_pasien]'>$s1[total_bmi]</button>";
                     }
                      
                   } else {
                       echo" <button type='button' class='btn btn-primary my-2' data-toggle='modal' data-target='#inputbmi$t[id_pasien]'>INPUT DATA BMI</button>";  
                   }
-                  echo"</div>
-                  
-              </div>
+                  echo"
+                  </div>
+                  <div class='col-auto pl-0 align-self-center'>
+                  <button type='button' class='btn btn-default button-rounded-36 shadow' data-toggle='modal' data-target='#inputbmi$t[id_pasien]'><i class='material-icons'>add</i></button>
+          </div> </div>
+
+          
+          ";
+                }
+             echo" 
           </li>
          
       </ul>
   </div>
   <div class='tab-pane fade' id='nav-booking' role='tabpanel' aria-labelledby='nav-booking-tab'>
       <ul class='list-items'>
-          <li>
+          <li>  ";
+          $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
+           while ( $s2 = mysqli_fetch_array($lite2)) {
+           echo"
               <div class='row'>
                   <div class='col'>";
                   if ($t['map'] === "sudah") {
-                    $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
-                    $s2=mysqli_fetch_array($lite2);
+        
+                    echo"<button type='button' class='btn btn-primary my-2'>$s2[tgl]</button> ";
                     if ($s2['total_map'] >= 90) {
-                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Preeklampsia</button>";
+                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Preeklampsia</button>
+                        <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datamap$t[id_pasien]'>$s2[total_map]</button>";
                     } else {
-                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Normal</button>";
+                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Normal</button>
+                        <button type='button' class='btn btn-success' data-toggle='modal' data-target='#datamap$t[id_pasien]'>$s2[total_map]</button>";
                     }
                   } else {
                       echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#inputmap$t[id_pasien]'>INPUT DATA MAP</button>";  
                   }
                   echo"</div>
-              </div>
+                  <div class='col-auto pl-0 align-self-center'>
+                  <button type='button' class='btn btn-default button-rounded-36 shadow' data-toggle='modal' data-target='#inputmap$t[id_pasien]'><i class='material-icons'>add</i></button>
+          </div>
+              </div> ";
+            }
+         echo"
           </li>
       </ul>
   </div>
 
   <div class='tab-pane fade' id='nav-rot' role='tabpanel' aria-labelledby='nav-booking-tab'>
   <ul class='list-items'>
-      <li>
+      <li>";
+      $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
+       while ( $s3 = mysqli_fetch_array($lite3)) {
+       echo"
           <div class='row'>
               <div class='col'>";
               if ($t['rot'] === "sudah") {
-                $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
-                $s3=mysqli_fetch_array($lite3);
+                echo"<button type='button' class='btn btn-primary my-2'>$s3[tgl]</button> ";
                 if ($s3['total_rot'] >= 15) {
-                    echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datarot$t[id_pasien]'>
-                    Preeklampsia
-                </button>";
+                    echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datarot$t[id_pasien]'>Preeklampsia</button>
+                    <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datarot$t[id_pasien]'>$s3[total_rot]</button>";
                 } else {
-                    echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datarot$t[id_pasien]'>Normal</button>";
+                    echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datarot$t[id_pasien]'>Normal</button>
+                    <button type='button' class='btn btn-success' data-toggle='modal' data-target='#datarot$t[id_pasien]'>$s3[total_rot]</button>";
                 }
               } else {
                   echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#rot$t[id_pasien]'>INPUT DATA ROT</button>";  
               }
               $hasil=$s1['total_bmi'] + $s2['total_map'] + $s3['total_rot']; 
                echo"</div>
+               <div class='col-auto pl-0 align-self-center'>
+                  <button type='button' class='btn btn-default button-rounded-36 shadow' data-toggle='modal' data-target='#rot$t[id_pasien]'><i class='material-icons'>add</i></button>
           </div>
+          </div>
+          ";
+            }
+         echo"
       </li>
   </ul>
  </div>
 
 </div>
-<br>
-<div class='card mb-4 border-0 shadow-sm'>
-  <div class='card-body'>
-      <div class='row'>
+<br>";
+// <div class='card mb-4 border-0 shadow-sm'>
+//   <div class='card-body'>
+//       <div class='row'>
           
-          <div class='col-auto'>
-          <span class='btn btn-default p-3 btn-rounded-15'>
-              <i class='material-icons'>camera_enhance</i>
-          </span>
-      </div>
-      <div class='col pl-0'> 
-          <p class='text-secondary mb-1'>Kesimpulan</p>";
-          if ($hasil >= 133) {
-            echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#kesimpulan$t[id_pasien]'>
-            Preeklampsia
-        </button>";
-        } else {
-            echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#normalkesimpulan$t[id_pasien]'>Normal</button>";
-        }
-          echo"
+//           <div class='col-auto'>
+//           <span class='btn btn-default p-3 btn-rounded-15'>
+//               <i class='material-icons'>camera_enhance</i>
+//           </span>
+//       </div>
+//       <div class='col pl-0'> 
+//           <p class='text-secondary mb-1'>Kesimpulan</p>";
+//           if ($hasil >= 133) {
+//             echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#kesimpulan$t[id_pasien]'>
+//             Preeklampsia
+//         </button>";
+//         } else {
+//             echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#normalkesimpulan$t[id_pasien]'>Normal</button>";
+//         }
+//           echo"
        
-      </div>
-          <div class='col-auto pl-0 align-self-center'>
-              <a href='index.php?aksi=home' class='btn btn-default button-rounded-36 shadow'><i class='material-icons'>add</i></a>
-          </div>
-      </div>
-  </div>
-</div>
-<button type='button' class='btn btn-lg btn-dark text-white btn-block btn-rounded shadow' data-toggle='modal' data-target='#edit$t[id_pasien]'><span>Edit Profile</span><i class='material-icons'>arrow_forward</i></button>
+//       </div>
+//           <div class='col-auto pl-0 align-self-center'>
+//               <a href='index.php?aksi=home' class='btn btn-default button-rounded-36 shadow'><i class='material-icons'>add</i></a>
+//           </div>
+//       </div>
+//   </div>
+// </div>
+echo"<button type='button' class='btn btn-lg btn-dark text-white btn-block btn-rounded shadow' data-toggle='modal' data-target='#edit$t[id_pasien]'><span>Edit Pasien</span><i class='material-icons'>arrow_forward</i></button>
 <br>
 </div>";
 include "bawah.php"; 

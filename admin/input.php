@@ -7,8 +7,8 @@
   }
 ///////////////////////////lihat/////////////////////////////////////////////
 if($_GET['aksi']=='inputpasien'){
-	mysqli_query($koneksi,"insert into pasien (nama_pasien,nama_suami,umur_pasien,alamat_pasien,id_user) 
-	values ('$_POST[nama_pasien]','$_POST[nama_suami]','$_POST[umur_pasien]','$_POST[alamat_pasien]','$_SESSION[id]')");  
+	mysqli_query($koneksi,"insert into pasien (nama_pasien,nik,nama_suami,umur_pasien,alamat_pasien,id_user) 
+	values ('$_POST[nama_pasien]','$_POST[nik]','$_POST[nama_suami]','$_POST[umur_pasien]','$_POST[alamat_pasien]','$_SESSION[id]')");  
 	$id_pasien_baru = mysqli_insert_id($koneksi);
 	
 	$tb=$_POST['tb']/100;
