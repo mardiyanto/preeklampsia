@@ -222,7 +222,7 @@ elseif($_GET['aksi']=='detailpasien'){
                              echo"<a href='index.php?aksi=detailbmi&id_bmi=$s1[id_bmi]' class='btn btn-success' >Normal</a>
                              <a href='index.php?aksi=detailbmi&id_bmi=$s1[id_bmi]' class='btn btn-success' >$s1[total_bmi]</a>";
                     }
-                     
+                    echo" <button type='button' class='btn btn-primary my-2'>$s1[ket_bmi]</button> ";
                   } else {
                       echo" <button type='button' class='btn btn-primary my-2' data-toggle='modal' data-target='#inputbmi$t[id_pasien]'>INPUT DATA BMI</button>";  
                   }
@@ -262,6 +262,7 @@ elseif($_GET['aksi']=='detailpasien'){
                         echo"<a href='index.php?aksi=detailmap&id_map=$s2[id_map]' class='btn btn-success' >Normal</a>
                         <a href='index.php?aksi=detailmap&id_map=$s2[id_map]' class='btn btn-success' >$s2[total_map]</a>";
                     }
+                    echo" <button type='button' class='btn btn-primary my-2'>$s2[ket_map]</button> ";
                   } else {
                       echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#inputmap$t[id_pasien]'>INPUT DATA MAP</button>";  
                   }
@@ -297,6 +298,7 @@ elseif($_GET['aksi']=='detailpasien'){
                     echo"<a href='index.php?aksi=detailrot&id_rot=$s3[id_rot]' class='btn btn-success' >Normal</a>
                         <a href='index.php?aksi=detailrot&id_rot=$s3[id_rot]' class='btn btn-success' >$s3[total_rot]</a>";
                 }
+                echo" <button type='button' class='btn btn-primary my-2'>$s3[ket_rot]</button> ";
               } else {
                   echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#rot$t[id_pasien]'>INPUT DATA ROT</button>";  
               }
@@ -790,9 +792,7 @@ elseif($_GET['aksi']=='caripasien'){
                     <th>No</th>
                     <th>Nama Pasien</th>
                     <th>Aksi</th>
-                    <th>BMI</th>
-                    <th>MAP</th>
-                    <th>ROT</th>
+                  
                 </tr>
             </thead>
 ";
@@ -809,34 +809,36 @@ while ($t = mysqli_fetch_assoc($result)) {
             <td><a class='btn btn-primary' href='index.php?aksi=editpasien&id_pasien=$t[id_pasien]'>edit</a>
             <a class='btn btn-primary' href='index.php?aksi=detailpasien&id_pasien=$t[id_pasien]'>lihat</a>
             <a class='btn btn-danger' href='hapus.php?aksi=hapuspasien&id_pasien=$t[id_pasien]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\">hapus</a>
-            </td>
-            <td>"; $lite1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
-            $s1=mysqli_fetch_array($lite1);
+           </td>
+            ";
+            // <td>"; $lite1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
+            // $s1=mysqli_fetch_array($lite1);
 
-            if ($s1['total_bmi'] >= 28.8) {
-                echo"<a class='btn btn-danger' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Preeklampsia</a>";
-            } else {
-                echo"<a class='btn btn-success' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Normal</a>";
-            }
-            echo"</td>
-            <td>";  $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
-            $s2=mysqli_fetch_array($lite2);
-            if ($s2['total_map'] >= 90) {
-                echo"<a class='btn btn-danger' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Preeklampsia</a>";
-            } else {
-                echo"<a class='btn btn-success' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Normal</a>";
-            }
-            echo"</td>
-            <td>";  $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
-            $s3=mysqli_fetch_array($lite3);
-            if ($s3['total_rot'] >= 15) {
-                echo"<a  class='btn btn-danger' href='index.php?aksi=editrot&id_rot=$s3[id_rot]'>
-                Preeklampsia
-            </a>";
-            } else {
-                echo"<a  class='btn btn-success' href='index.php?aksi=editrot&id_rot=$s3[id_rot]' >Normal</a>";
-            }
-            echo"</td>
+            // if ($s1['total_bmi'] >= 28.8) {
+            //     echo"<a class='btn btn-danger' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Preeklampsia</a>";
+            // } else {
+            //     echo"<a class='btn btn-success' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Normal</a>";
+            // }
+            // echo"</td>
+            // <td>";  $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
+            // $s2=mysqli_fetch_array($lite2);
+            // if ($s2['total_map'] >= 90) {
+            //     echo"<a class='btn btn-danger' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Preeklampsia</a>";
+            // } else {
+            //     echo"<a class='btn btn-success' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Normal</a>";
+            // }
+            // echo"</td>
+            // <td>";  $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
+            // $s3=mysqli_fetch_array($lite3);
+            // if ($s3['total_rot'] >= 15) {
+            //     echo"<a  class='btn btn-danger' href='index.php?aksi=editrot&id_rot=$s3[id_rot]'>
+            //     Preeklampsia
+            // </a>";
+            // } else {
+            //     echo"<a  class='btn btn-success' href='index.php?aksi=editrot&id_rot=$s3[id_rot]' >Normal</a>";
+            // }
+            // echo"</td>
+            echo"
 </tr> 
     </tbody>
     
@@ -855,33 +857,35 @@ while ($t = mysqli_fetch_assoc($result)) {
                 <a class='btn btn-primary' href='index.php?aksi=detailpasien&id_pasien=$t[id_pasien]'>lihat</a>
                 <a class='btn btn-danger' href='hapus.php?aksi=hapuspasien&id_pasien=$t[id_pasien]' onclick=\"return confirm ('Apakah yakin ingin menghapus $t[nama_pasien] ?')\">hapus</a>
                 </td>
-                <td>"; $lite1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
-                $s1=mysqli_fetch_array($lite1);
+                ";
+                // <td>"; $lite1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
+                // $s1=mysqli_fetch_array($lite1);
 
-                if ($s1['total_bmi'] >= 28.8) {
-                    echo"<a class='btn btn-danger' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Preeklampsia</a>";
-                } else {
-                    echo"<a class='btn btn-success' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Normal</a>";
-                }
-                echo"</td>
-                <td>";  $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
-                $s2=mysqli_fetch_array($lite2);
-                if ($s2['total_map'] >= 90) {
-                    echo"<a class='btn btn-danger' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Preeklampsia</a>";
-                } else {
-                    echo"<a class='btn btn-success' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Normal</a>";
-                }
-                echo"</td>
-                <td>";  $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
-                $s3=mysqli_fetch_array($lite3);
-                if ($s3['total_rot'] >= 15) {
-                    echo"<a  class='btn btn-danger' href='index.php?aksi=editrot&id_rot=$s3[id_rot]'>
-                    Preeklampsia
-                </a>";
-                } else {
-                    echo"<a  class='btn btn-success' href='index.php?aksi=editrot&id_rot=$s3[id_rot]' >Normal</a>";
-                }
-                echo"</td>
+                // if ($s1['total_bmi'] >= 28.8) {
+                //     echo"<a class='btn btn-danger' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Preeklampsia</a>";
+                // } else {
+                //     echo"<a class='btn btn-success' href='index.php?aksi=editbmi&id_bmi=$s1[id_bmi]'>Normal</a>";
+                // }
+                // echo"</td>
+                // <td>";  $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
+                // $s2=mysqli_fetch_array($lite2);
+                // if ($s2['total_map'] >= 90) {
+                //     echo"<a class='btn btn-danger' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Preeklampsia</a>";
+                // } else {
+                //     echo"<a class='btn btn-success' href='index.php?aksi=editmap&id_map=$s2[id_map]'>Normal</a>";
+                // }
+                // echo"</td>
+                // <td>";  $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
+                // $s3=mysqli_fetch_array($lite3);
+                // if ($s3['total_rot'] >= 15) {
+                //     echo"<a  class='btn btn-danger' href='index.php?aksi=editrot&id_rot=$s3[id_rot]'>
+                //     Preeklampsia
+                // </a>";
+                // } else {
+                //     echo"<a  class='btn btn-success' href='index.php?aksi=editrot&id_rot=$s3[id_rot]' >Normal</a>";
+                // }
+                // echo"</td>
+                echo"
 </tr> 
         </tbody>
         ";
