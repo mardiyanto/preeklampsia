@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.7.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 15 Bulan Mei 2024 pada 10.58
--- Versi server: 10.1.38-MariaDB
--- Versi PHP: 5.6.40
+-- Generation Time: 18 Mei 2024 pada 15.59
+-- Versi Server: 10.1.25-MariaDB
+-- PHP Version: 5.6.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -34,16 +34,18 @@ CREATE TABLE `bmi` (
   `bb` varchar(100) NOT NULL,
   `total_bmi` varchar(100) NOT NULL,
   `id_pasien` int(100) NOT NULL,
-  `tgl` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `tgl` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ket_bmi` text,
+  `status_bmi` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `bmi`
 --
 
-INSERT INTO `bmi` (`id_bmi`, `tb`, `bb`, `total_bmi`, `id_pasien`, `tgl`) VALUES
-(7, '123', '40', '26.439288783132', 7, '2024-05-01 01:40:22'),
-(11, '122', '33', '26.439288783132', 7, '2024-05-15 04:40:22');
+INSERT INTO `bmi` (`id_bmi`, `tb`, `bb`, `total_bmi`, `id_pasien`, `tgl`, `ket_bmi`, `status_bmi`) VALUES
+(7, '123', '40', '26.439288783132', 7, '2024-05-18 13:53:23', 'banyak instirahat', 'sudah'),
+(11, '122', '33', '26.439288783132', 7, '2024-05-15 04:40:22', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -58,16 +60,18 @@ CREATE TABLE `map` (
   `sistole` varchar(100) NOT NULL,
   `diastole1` varchar(100) NOT NULL,
   `diastole2` varchar(100) NOT NULL,
-  `total_map` varchar(100) NOT NULL
+  `total_map` varchar(100) NOT NULL,
+  `ket_map` text,
+  `status_map` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `map`
 --
 
-INSERT INTO `map` (`id_map`, `id_pasien`, `tgl`, `sistole`, `diastole1`, `diastole2`, `total_map`) VALUES
-(7, 7, '2024-05-15 04:40:45', '23', '23', '23', '23'),
-(11, 7, '2024-05-15 07:31:09', '110', '90', '90', '96.666666666667');
+INSERT INTO `map` (`id_map`, `id_pasien`, `tgl`, `sistole`, `diastole1`, `diastole2`, `total_map`, `ket_map`, `status_map`) VALUES
+(7, 7, '2024-05-15 04:40:45', '23', '23', '23', '23', NULL, NULL),
+(11, 7, '2024-05-18 13:59:10', '110', '90', '90', '96.666666666667', 'banyakin makan bro', 'sudah');
 
 -- --------------------------------------------------------
 
@@ -133,15 +137,17 @@ CREATE TABLE `rot` (
   `tgl` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `terlentang` varchar(100) NOT NULL,
   `miring` varchar(100) NOT NULL,
-  `total_rot` varchar(100) NOT NULL
+  `total_rot` varchar(100) NOT NULL,
+  `ket_rot` text,
+  `status_rot` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data untuk tabel `rot`
 --
 
-INSERT INTO `rot` (`id_rot`, `id_pasien`, `tgl`, `terlentang`, `miring`, `total_rot`) VALUES
-(7, 7, '2024-05-15 04:41:08', '23', '23', '0');
+INSERT INTO `rot` (`id_rot`, `id_pasien`, `tgl`, `terlentang`, `miring`, `total_rot`, `ket_rot`, `status_rot`) VALUES
+(7, 7, '2024-05-18 13:56:34', '23', '23', '0', 'banyak istirahat', 'sudah');
 
 -- --------------------------------------------------------
 
@@ -175,84 +181,78 @@ INSERT INTO `user` (`user_id`, `user_nama`, `email`, `user_username`, `user_pass
 --
 
 --
--- Indeks untuk tabel `bmi`
+-- Indexes for table `bmi`
 --
 ALTER TABLE `bmi`
   ADD PRIMARY KEY (`id_bmi`),
   ADD KEY `id_pasien` (`id_pasien`);
 
 --
--- Indeks untuk tabel `map`
+-- Indexes for table `map`
 --
 ALTER TABLE `map`
   ADD PRIMARY KEY (`id_map`),
   ADD KEY `id_pasien` (`id_pasien`);
 
 --
--- Indeks untuk tabel `pasien`
+-- Indexes for table `pasien`
 --
 ALTER TABLE `pasien`
   ADD PRIMARY KEY (`id_pasien`);
 
 --
--- Indeks untuk tabel `profil`
+-- Indexes for table `profil`
 --
 ALTER TABLE `profil`
   ADD PRIMARY KEY (`id_profil`);
 
 --
--- Indeks untuk tabel `rot`
+-- Indexes for table `rot`
 --
 ALTER TABLE `rot`
   ADD PRIMARY KEY (`id_rot`),
   ADD KEY `id_pasien` (`id_pasien`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`user_id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `bmi`
+-- AUTO_INCREMENT for table `bmi`
 --
 ALTER TABLE `bmi`
   MODIFY `id_bmi` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
 --
--- AUTO_INCREMENT untuk tabel `map`
+-- AUTO_INCREMENT for table `map`
 --
 ALTER TABLE `map`
   MODIFY `id_map` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
-
 --
--- AUTO_INCREMENT untuk tabel `pasien`
+-- AUTO_INCREMENT for table `pasien`
 --
 ALTER TABLE `pasien`
   MODIFY `id_pasien` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
 --
--- AUTO_INCREMENT untuk tabel `profil`
+-- AUTO_INCREMENT for table `profil`
 --
 ALTER TABLE `profil`
   MODIFY `id_profil` int(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
--- AUTO_INCREMENT untuk tabel `rot`
+-- AUTO_INCREMENT for table `rot`
 --
 ALTER TABLE `rot`
   MODIFY `id_rot` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --

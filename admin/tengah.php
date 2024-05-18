@@ -252,11 +252,15 @@ elseif($_GET['aksi']=='detailpasien'){
         
                     echo"<button type='button' class='btn btn-primary my-2'>$s2[tgl]</button> ";
                     if ($s2['total_map'] >= 90) {
-                        echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Preeklampsia</button>
-                        <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datamap$t[id_pasien]'>$s2[total_map]</button>";
+                        // echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Preeklampsia</button>
+                        // <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datamap$t[id_pasien]'>$s2[total_map]</button>";
+                        echo"<a href='index.php?aksi=detailmap&id_map=$s2[id_map]' class='btn btn-danger'>Preeklampsia</a>
+                        <a href='index.php?aksi=detailmap&id_map=$s2[id_map]' class='btn btn-danger'>$s2[total_map]</a>";
                     } else {
-                        echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Normal</button>
-                        <button type='button' class='btn btn-success' data-toggle='modal' data-target='#datamap$t[id_pasien]'>$s2[total_map]</button>";
+                        // echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datamap$t[id_pasien]'>Normal</button>
+                        // <button type='button' class='btn btn-success' data-toggle='modal' data-target='#datamap$t[id_pasien]'>$s2[total_map]</button>";
+                        echo"<a href='index.php?aksi=detailmap&id_map=$s2[id_map]' class='btn btn-success' >Normal</a>
+                        <a href='index.php?aksi=detailmap&id_map=$s2[id_map]' class='btn btn-success' >$s2[total_map]</a>";
                     }
                   } else {
                       echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#inputmap$t[id_pasien]'>INPUT DATA MAP</button>";  
@@ -283,11 +287,15 @@ elseif($_GET['aksi']=='detailpasien'){
               if ($t['rot'] === "sudah") {
                 echo"<button type='button' class='btn btn-primary my-2'>$s3[tgl]</button> ";
                 if ($s3['total_rot'] >= 15) {
-                    echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datarot$t[id_pasien]'>Preeklampsia</button>
-                    <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datarot$t[id_pasien]'>$s3[total_rot]</button>";
+                    // echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datarot$t[id_pasien]'>Preeklampsia</button>
+                    // <button type='button' class='btn btn-danger' data-toggle='modal' data-target='#datarot$t[id_pasien]'>$s3[total_rot]</button>";
+                    echo"<a href='index.php?aksi=detailrot&id_rot=$s3[id_rot]' class='btn btn-danger'>Preeklampsia</a>
+                    <a href='index.php?aksi=detailrot&id_rot=$s3[id_rot]' class='btn btn-danger'>$s3[total_rot]</a>";
                 } else {
-                    echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datarot$t[id_pasien]'>Normal</button>
-                    <button type='button' class='btn btn-success' data-toggle='modal' data-target='#datarot$t[id_pasien]'>$s3[total_rot]</button>";
+                    // echo"<button type='button' class='btn btn-success' data-toggle='modal' data-target='#datarot$t[id_pasien]'>Normal</button>
+                    // <button type='button' class='btn btn-success' data-toggle='modal' data-target='#datarot$t[id_pasien]'>$s3[total_rot]</button>";
+                    echo"<a href='index.php?aksi=detailrot&id_rot=$s3[id_rot]' class='btn btn-success' >Normal</a>
+                        <a href='index.php?aksi=detailrot&id_rot=$s3[id_rot]' class='btn btn-success' >$s3[total_rot]</a>";
                 }
               } else {
                   echo"<button type='button' class='btn btn-danger' data-toggle='modal' data-target='#rot$t[id_pasien]'>INPUT DATA ROT</button>";  
@@ -1293,21 +1301,189 @@ elseif($_GET['aksi']=='editbmi'){
     ";
     include "bawah.php"; 
 }
+elseif($_GET['aksi']=='detailmap'){
+    $tebaru=mysqli_query($koneksi," SELECT * FROM map,pasien WHERE map.id_pasien=pasien.id_pasien and map.id_map=$_GET[id_map] ");
+    $t=mysqli_fetch_array($tebaru);    
+    $sql2=mysqli_query($koneksi," SELECT * FROM map WHERE id_map=$_GET[id_map] ");
+    $j=mysqli_fetch_array($sql2);
+echo"
+<div class='container'>
+<div class='jumbotron mb-3 bg-white'>
+  <div class='modal-content'>
+  <a  href='index.php?aksi=detailpasien&id_pasien=$t[id_pasien]' class='btn btn-default' >KEMBALI</a>
+  <a href='index.php?aksi=editmap&id_map=$j[id_map]' class='btn btn-primary'>Edit </a>
+  <button class='btn btn-info' data-toggle='modal' data-target='#uiModal'>
+  Tambahkan keterangan
+</button><br> <br>
+                               <div class='modal-header'><h4 class='modal-title' id='H3'>Data MAP $t[nama_pasien]</h4>
+                                   <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                   
+                               </div>
+
+                               <div class='modal-body'>";
+                             
+                                    if ($j['total_map'] >= 90) {
+                                        echo"<img src='../tema/img/preeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                                        <!-- Teks di dalam modal -->
+                                        <p>Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang</p>
+                                        <p>Nama: $j[nama_pasien]</p>
+                                        <p>Sistole: $j[sistole]</p>
+                                        <p>Diastole: $j[diastole1]</p>
+                                        <p>Status:  <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
+                                        Preeklampsia
+                                    </button>  ($j[total_map])</p>";
+                                    } else {
+                                        echo"<img src='../tema/img/nonpreeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                                        <!-- Teks di dalam modal -->
+                                        <p>Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan</p>
+                                        <p>Nama: $j[nama_pasien]</p>
+                                        <p>Sistole: $j[sistole]</p>
+                                        <p>Diastole: $j[diastole1]</p>
+                                        <p>Status:  <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
+                                        Normal
+                                    </button>   ($j[total_map])</p>";
+                                    }
+                                     echo"
+                                    <br><br>
+                                     
+                 
+                                       
+                                                                           
+                                </div>
+
+                                </div>
+                                </div>
+                               </div>                  
+                               ";
+                               include "bawah.php"; 
+    echo"			
+    <div class='col-lg-12'>
+                            <div class='modal fade' id='uiModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                    <div class='modal-dialog'>
+                                        <div class='modal-content'>
+                                            <div class='modal-header'>
+                                                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                                <h4 class='modal-title' id='H3'>Input $t[id_map]</h4>
+                                            </div>
+                                                      <div class='box-body'>
+                <form action='edit.php?aksi=editmap&id_map=$t[id_map]' method='post' enctype='multipart/form-data'>
+                  <div class='form-group'>
+                    <label>Keterangan</label>
+                    <input type='text' class='form-control' value='$t[ket_map]' name='ket_map' required='required' placeholder='Masukkan data ..'>
+                  </div>
+                  <div class='form-group'>
+                    <input type='submit' class='btn btn-sm btn-primary' value='Simpan'>
+                  </div>
+                </form>
+              </div>
+                                        
+                                    </div>
+                                </div>
+                        </div>
+                </div>			
+    "; 
+}
+elseif($_GET['aksi']=='detailrot'){
+    $tebaru=mysqli_query($koneksi," SELECT * FROM rot,pasien WHERE rot.id_pasien=pasien.id_pasien and rot.id_rot=$_GET[id_rot] ");
+    $t=mysqli_fetch_array($tebaru);   
+    $sql3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_rot=$_GET[id_rot] ");
+    $jx=mysqli_fetch_array($sql3); 
+echo"
+<div class='container'>
+<div class='jumbotron mb-3 bg-white'>
+  <div class='modal-content'>
+  <a  href='index.php?aksi=detailpasien&id_pasien=$t[id_pasien]' class='btn btn-default' >KEMBALI</a>
+  <a href='index.php?aksi=editrot&id_rot=$jx[id_rot]' class='btn btn-primary'>Edit </a>
+  <button class='btn btn-info' data-toggle='modal' data-target='#uiModal'>
+  Tambahkan keterangan
+</button><br> <br>
+                               <div class='modal-header'> <h4 class='modal-title' id='H3'>Data ROT $t[nama_pasien]</h4>
+                                   <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                  
+                               </div>
+
+                               <div class='modal-body'>";
+                             
+                                    if ($jx['total_rot'] >= 15) {
+                                        echo"<img src='../tema/img/preeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                                        <!-- Teks di dalam modal -->
+                                        <p>Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang</p>
+                                        <p>Nama: $t[nama_pasien]</p>
+                                        <p>Diastole Miring: $jx[miring]</p>
+                                        <p>Diastole Terlentang: $jx[terlentang]</p>
+                                        <p>Status:  <button type='button' class='btn btn-danger' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut penatalaksanaan kasus preeklampsia seperti : Konsultasi ke dokter Spesialis Obsgyn, Merujuk pasien, Kontrol tekanan darah dan Pencegahan Kejang' data-original-title='' title=''>
+                                        Preeklampsia
+                                    </button> ($jx[total_rot])</p>";
+                                    } else {
+                                        echo"<img src='../tema/img/nonpreeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
+                                        <!-- Teks di dalam modal -->
+                                        <p>Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan</p>
+                                        <p>Nama: $t[nama_pasien]</p>
+                                        <p>Diastole Miring: $jx[miring]</p>
+                                        <p>Diastole Terlentang: $jx[terlentang]</p>
+                                        <p>Status: <button type='button' class='btn btn-success' data-container='body' data-trigger='hover' data-toggle='popover' data-placement='top' data-content='Tindak lanjut pada kehamilan normal seperti : Istrirahat cukup, menjaga pola makan, rutin melakukan pemeriksaan kehamilan' data-original-title='' title=''>
+                                        Normal
+                                    </button>  ($jx[total_rot])</p>";
+                                    }
+                                     echo"
+                                    <br><br>
+                                     
+                               
+                                      
+                                                                          
+                                </div>
+       </div>
+     </div>
+    </div>                  
+    ";
+    include "bawah.php"; 
+    echo"			
+    <div class='col-lg-12'>
+                            <div class='modal fade' id='uiModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                    <div class='modal-dialog'>
+                                        <div class='modal-content'>
+                                            <div class='modal-header'>
+                                                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                                <h4 class='modal-title' id='H3'>Input $t[id_rot]</h4>
+                                            </div>
+                                                      <div class='box-body'>
+                <form action='edit.php?aksi=editrot&id_rot=$t[id_rot]' method='post' enctype='multipart/form-data'>
+                  <div class='form-group'>
+                    <label>Keterangan</label>
+                    <input type='text' class='form-control' value='$t[ket_rot]' name='ket_rot' required='required' placeholder='Masukkan data ..'>
+                  </div>
+                  <div class='form-group'>
+                    <input type='submit' class='btn btn-sm btn-primary' value='Simpan'>
+                  </div>
+                </form>
+              </div>
+                                        
+                                    </div>
+                                </div>
+                        </div>
+                </div>			
+    "; 
+
+}
 elseif($_GET['aksi']=='detailbmi'){
     $tebaru=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and bmi.id_bmi=$_GET[id_bmi] ");
     $t=mysqli_fetch_array($tebaru);
+    $sql1=mysqli_query($koneksi," SELECT * FROM bmi WHERE id_bmi=$_GET[id_bmi]");
+    $s=mysqli_fetch_array($sql1);
     echo"
     <div class='container'>
     <div class='jumbotron mb-3 bg-white'>
       <div class='modal-content'>
       <a  href='index.php?aksi=detailpasien&id_pasien=$t[id_pasien]' class='btn btn-default' >KEMBALI</a>
       <a href='index.php?aksi=editbmi&id_bmi=$s[id_bmi]' class='btn btn-primary'>Edit </a> 
+      <button class='btn btn-info' data-toggle='modal' data-target='#uiModal'>
+                           Tambahkan keterangan
+                        </button><br> <br>
           <div class='modal-header'><h4 class='modal-title' id='H3'>Data BMI $t[nama_pasien]</h4> 
           </div>
           <div class='modal-body'>
           ";
-              $sql1=mysqli_query($koneksi," SELECT * FROM bmi WHERE id_pasien=$t[id_pasien] ");
-              $s=mysqli_fetch_array($sql1);
+             
                    if ($s['total_bmi'] >= 28.8) {
                       echo"<img src='../tema/img/preeklamsia.jpg' alt='Gambar Modal' class='img-fluid'><br>
                       <!-- Teks di dalam modal -->
@@ -1339,6 +1515,32 @@ elseif($_GET['aksi']=='detailbmi'){
     </div>                  
     ";
     include "bawah.php"; 
+    echo"			
+    <div class='col-lg-12'>
+                            <div class='modal fade' id='uiModal' tabindex='-1' role='dialog' aria-labelledby='myModalLabel' aria-hidden='true'>
+                                    <div class='modal-dialog'>
+                                        <div class='modal-content'>
+                                            <div class='modal-header'>
+                                                <button type='button' class='close' data-dismiss='modal' aria-hidden='true'>&times;</button>
+                                                <h4 class='modal-title' id='H3'>Input $s[id_bmi]</h4>
+                                            </div>
+                                                      <div class='box-body'>
+                <form action='edit.php?aksi=editbmi&id_bmi=$s[id_bmi]' method='post' enctype='multipart/form-data'>
+                  <div class='form-group'>
+                    <label>Keterangan</label>
+                    <input type='text' class='form-control' value='$s[ket_bmi]' name='ket_bmi' required='required' placeholder='Masukkan data ..'>
+                  </div>
+                  <div class='form-group'>
+                    <input type='submit' class='btn btn-sm btn-primary' value='Simpan'>
+                  </div>
+                </form>
+              </div>
+                                        
+                                    </div>
+                                </div>
+                        </div>
+                </div>			
+    "; 
 }
 elseif($_GET['aksi']=='map'){
     echo"    <div class='container'>

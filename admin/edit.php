@@ -19,6 +19,10 @@ elseif($_GET['aksi']=='proseseditbmi'){
 	mysqli_query($koneksi,"UPDATE bmi SET bb='$_POST[bb]',tb='$_POST[tb]',total_bmi='$total' WHERE id_bmi='$_GET[id_bmi]'");
 	echo "<script>window.location=('index.php?aksi=pasien')</script>";
 }
+elseif($_GET['aksi']=='editbmi'){
+	mysqli_query($koneksi,"UPDATE bmi SET ket_bmi='$_POST[ket_bmi]',status_bmi='sudah' WHERE id_bmi='$_GET[id_bmi]'");
+	echo "<script>window.location=('index.php?aksi=detailbmi&id_bmi=$_GET[id_bmi]')</script>";
+}
 elseif($_GET['aksi']=='proseseditmap'){
 	$diastole=$_POST['diastole'];
 	$plus_diastole = $diastole + $diastole;
@@ -27,12 +31,20 @@ elseif($_GET['aksi']=='proseseditmap'){
 	mysqli_query($koneksi,"UPDATE map SET sistole='$_POST[sistole]',diastole1='$_POST[diastole]',diastole2='$_POST[diastole]',total_map='$total' WHERE id_map='$_GET[id_map]'");
 echo "<script>window.location=('index.php?aksi=pasien')</script>";
 }
+elseif($_GET['aksi']=='editmap'){
+	mysqli_query($koneksi,"UPDATE map SET ket_map='$_POST[ket_map]',status_map='sudah' WHERE id_map='$_GET[id_map]'");
+echo "<script>window.location=('index.php?aksi=detailmap&id_map=$_GET[id_map]')</script>";
+}
 elseif($_GET['aksi']=='proseseditrot'){
 	$terlentang=$_POST['terlentang'];
 	$miring=$_POST['miring'];
 	$total=$terlentang-$miring;
 	mysqli_query($koneksi,"UPDATE rot SET terlentang='$_POST[terlentang]',miring='$_POST[miring]', total_rot='$total' WHERE id_rot='$_GET[id_rot]'");
 echo "<script>window.location=('index.php?aksi=pasien')</script>";
+}
+elseif($_GET['aksi']=='editrot'){
+	mysqli_query($koneksi,"UPDATE rot SET ket_rot='$_POST[ket_rot]',status_rot='sudah' WHERE id_rot='$_GET[id_rot]'");
+echo "<script>window.location=('index.php?aksi=detailrot&id_rot=$_GET[id_rot]')</script>";
 }
 elseif($_GET['aksi']=='proseseditpertanyaan'){
 	mysqli_query($koneksi,"UPDATE pertanyaan SET nama_pertanyaan='$_POST[nama_pertanyaan]', keterangan='$_POST[keterangan]', status_pertanyaan='$_POST[status_pertanyaan]' WHERE id_pertanyaan='$_GET[id_pertanyaan]'");
