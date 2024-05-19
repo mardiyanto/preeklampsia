@@ -3,15 +3,15 @@
 if($_GET['aksi']=='home'){
 echo"
 <div class='container'><div class='jumbotron mb-3 bg-white'>
-<div class='text-center'>
-<div class='figure-profile shadow my-4'>
-    <figure><img src='../tema/img/user1.png' alt=''></figure>
-    <div class='btn btn-dark text-white floating-btn'>
-        <i class='material-icons'>camera_alt</i>
-        <input type='file' class='float-file'>
-    </div>
-</div>
-</div>
+<div class='text-center'>";
+// <div class='figure-profile shadow my-4'>
+    // <figure><img src='../tema/img/user1.png' alt=''></figure>
+    // <div class='btn btn-dark text-white floating-btn'>
+    //     <i class='material-icons'>camera_alt</i>
+    //     <input type='file' class='float-file'>
+    // </div>
+// </div>
+echo"</div>
 <form id='form1' method='post' enctype='multipart/form-data' action='input.php?aksi=inputpasien'>
 <h6 class='subtitle'>Informasi Pasien</h6>
 <div class='row'>
@@ -89,11 +89,11 @@ elseif($_GET['aksi']=='detailpasien'){
     $t=mysqli_fetch_array($tebaru);
     echo"
 <div class='container'>
-  <div class='text-center'>
-  <div class='figure-profile shadow my-4'>
-      <figure><img src='../tema/img/user1.png' alt=''></figure>
-  </div>
-  <h3 class='mb-1 '>$t[nama_pasien]</h3>
+  <div class='text-center'>";
+//   <div class='figure-profile shadow my-4'>
+//       <figure><img src='../tema/img/user1.png' alt=''></figure>
+//   </div>
+  echo"<h3 class='mb-1 '>$t[nama_pasien]</h3>
   <p class='text-secondary'>$t[alamat_pasien]</p>
 </div>
 <br>
