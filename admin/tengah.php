@@ -136,7 +136,7 @@ elseif($_GET['aksi']=='detailpasien'){
   </div>
 </div>
 <nav> 
-<h1 class='nav-item nav-link text-left active'>Riwayat Priksa $t[nama_pasien]</h1>
+<h1 class='nav-item nav-link text-left active'>Riwayat Periksa $t[nama_pasien]</h1>
   <div class='nav nav-tabs nav-fill' id='nav-tab' role='tablist'>
       <a class='nav-item nav-link text-left active' id='nav-delivery-tab' data-toggle='tab' href='#nav-delivery' role='tab' aria-controls='nav-delivery' aria-selected='true'>
           <div class='row'>
@@ -180,7 +180,7 @@ elseif($_GET['aksi']=='detailpasien'){
       </div>
       
   </a>
-  <a  class='nav-item nav-link text-left' >
+  <a   target='_blank' href='cetakdetail.php?id_pasien=$t[id_pasien]' class='nav-item nav-link text-left' >
       <div class='row'>
           <div class='col-auto align-self-center pr-1'>
               <span class='btn btn-success button-rounded-26'>
