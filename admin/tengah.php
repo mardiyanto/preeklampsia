@@ -203,6 +203,7 @@ elseif($_GET['aksi']=='detailpasien'){
           <li>    ";
           $lite1=mysqli_query($koneksi," SELECT * FROM bmi,pasien WHERE bmi.id_pasien=pasien.id_pasien and pasien.id_pasien=$t[id_pasien] ");
            while ( $s1 = mysqli_fetch_array($lite1)) {
+            $s1['total_bmi'] = number_format($s1['total_bmi'], 1);
            echo"
               <div class='row'>
           
@@ -245,6 +246,7 @@ elseif($_GET['aksi']=='detailpasien'){
           <li>  ";
           $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
            while ( $s2 = mysqli_fetch_array($lite2)) {
+            $s2['total_map'] = number_format($s2['total_map'], 1);
            echo"
               <div class='row'>
                   <div class='col'>";
@@ -282,6 +284,7 @@ elseif($_GET['aksi']=='detailpasien'){
       <li>";
       $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
        while ( $s3 = mysqli_fetch_array($lite3)) {
+        $s3['total_rot'] = number_format($s3['total_rot'], 1);
        echo"
           <div class='row'>
               <div class='col'>";

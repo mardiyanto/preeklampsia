@@ -68,6 +68,7 @@ $tahun = date("Y");
             </thead>
 <?php  $lite1=mysqli_query($koneksi," SELECT * FROM bmi WHERE id_pasien=$t[id_pasien] ");
            while ( $s1 = mysqli_fetch_array($lite1)) { 
+            $s1['total_bmi'] = number_format($s1['total_bmi'], 1);
             $no++;  ?>
             <tbody>
             <tr><?php echo"   
@@ -112,6 +113,7 @@ $tahun = date("Y");
             </thead>
 <?php  $lite2=mysqli_query($koneksi," SELECT * FROM map WHERE id_pasien=$t[id_pasien] ");
            while ( $s2 = mysqli_fetch_array($lite2)) {
+            $s2['total_map'] = number_format($s2['total_map'], 1);
             $no++;  ?>
             <tbody>
             <tr><?php echo"   
@@ -155,6 +157,7 @@ $tahun = date("Y");
             </thead>
 <?php   $lite3=mysqli_query($koneksi," SELECT * FROM rot WHERE id_pasien=$t[id_pasien] ");
        while ( $s3 = mysqli_fetch_array($lite3)) {
+        $s3['total_rot'] = number_format($s3['total_rot'], 1);
             $no++;  ?>
             <tbody>
             <tr><?php echo"   
